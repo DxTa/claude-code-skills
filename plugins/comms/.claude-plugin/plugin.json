@@ -1,0 +1,14 @@
+{
+  "name": "comms",
+  "display_name": "Communications & Integrations",
+  "version": "1.0.0",
+  "description": "6 communication skills for Google Calendar, Google Drive, GitHub operations, GitLab operations, Gmail, and internal communications.",
+  "skills": [
+    "skills/gcal/SKILL.md",
+    "skills/gdrive/SKILL.md",
+    "skills/github-operations/SKILL.md",
+    "skills/glab-operations/SKILL.md",
+    "skills/gmail/SKILL.md",
+    "skills/internal-comms/SKILL.md"
+  ]
+}

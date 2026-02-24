@@ -1,0 +1,22 @@
+{
+  "name": "quality",
+  "display_name": "Quality Assurance",
+  "version": "1.0.0",
+  "description": "6 quality skills: chaos engineering, code review automation, performance testing, PR review toolkit, test coverage analysis, and webapp testing.",
+  "skills": [
+    "skills/chaos-engineering-toolkit/SKILL.md",
+    "skills/code-review-plugin/SKILL.md",
+    "skills/performance-test-suite/SKILL.md",
+    "skills/pr-review-toolkit/SKILL.md",
+    "skills/test-coverage-analyzer/SKILL.md",
+    "skills/webapp-testing/SKILL.md"
+  ],
+  "agents": [
+    "agents/qa-engineer.md",
+    "agents/code-simplifier.md"
+  ],
+  "commands": [
+    "commands/review.md",
+    "commands/setup-tests.md"
+  ]
+}

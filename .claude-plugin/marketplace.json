@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "name": "claude-code-skills",
+  "display_name": "Claude Code Skills Collection",
+  "description": "63 curated skills for Claude Code: thinking frameworks, workflow automation, frontend/backend development, quality assurance, DevOps, documentation, security, and more.",
+  "author": "dxta",
+  "repository": "https://github.com/dxta/claude-code-skills",
+  "license": "MIT",
+  "plugins": [
+    {
+      "name": "core-thinking",
+      "path": "plugins/core-thinking",
+      "display_name": "Core Thinking Frameworks",
+      "description": "9 mental models for problem-solving: collision-zone thinking, defense-in-depth, inversion, meta-pattern recognition, root-cause tracing, scale game, simplification cascades, when-stuck strategies, and reasoning tools.",
+      "tags": ["thinking", "problem-solving", "reasoning"]
+    },
+    {
+      "name": "core-workflow",
+      "path": "plugins/core-workflow",
+      "display_name": "Core Workflow Tools",
+      "description": "5 workflow skills: code review, planning with files, push-all, skill creator, and spec analyzer. Includes self-reflect and software-architect agents.",
+      "tags": ["workflow", "planning", "review"]
+    },
+    {
+      "name": "context-engineering",
+      "path": "plugins/context-engineering",
+      "display_name": "Context Engineering",
+      "description": "4 meta-skills for managing AI-assisted development: master checklist, anti-patterns, agent selection, and token management. Adapted for Claude Code compatibility.",
+      "tags": ["meta", "context", "management"]
+    },
+    {
+      "name": "frontend",
+      "path": "plugins/frontend",
+      "display_name": "Frontend Development",
+      "description": "5 frontend skills: design patterns, development guidelines, UI styling, web artifacts builder, and web frameworks. Includes frontend-specialist agent.",
+      "tags": ["frontend", "ui", "react", "vue", "css"]
+    },
+    {
+      "name": "backend",
+      "path": "plugins/backend",
+      "display_name": "Backend Development",
+      "description": "2 backend skills: backend development patterns and database design. Includes backend-specialist agent.",
+      "tags": ["backend", "api", "database"]
+    },
+    {
+      "name": "quality",
+      "path": "plugins/quality",
+      "display_name": "Quality Assurance",
+      "description": "6 quality skills: chaos engineering, code review plugin, performance testing, PR review toolkit, test coverage analyzer, and webapp testing. Includes qa-engineer and code-simplifier agents.",
+      "tags": ["testing", "qa", "quality", "performance"]
+    },
+    {
+      "name": "devops",
+      "path": "plugins/devops",
+      "display_name": "DevOps & Infrastructure",
+      "description": "4 DevOps skills: Ansible playbooks, CI/CD pipelines, cloud cost optimization, and infrastructure as code. Includes devops-engineer agent.",
+      "tags": ["devops", "ci-cd", "infrastructure", "docker"]
+    },
+    {
+      "name": "docs",
+      "path": "plugins/docs",
+      "display_name": "Documentation",
+      "description": "5 documentation skills: API docs generator, DOCX/PDF/PPTX/XLSX creation. Includes technical-writer agent.",
+      "tags": ["documentation", "api-docs", "writing"]
+    },
+    {
+      "name": "design",
+      "path": "plugins/design",
+      "display_name": "Design & Creative",
+      "description": "5 design skills: algorithmic art, artifacts builder, brand guidelines, canvas design, and theme factory.",
+      "tags": ["design", "creative", "branding", "themes"]
+    },
+    {
+      "name": "security",
+      "path": "plugins/security",
+      "display_name": "Security",
+      "description": "2 security skills: security pro pack and security test scanner. Includes security-engineer agent.",
+      "tags": ["security", "owasp", "vulnerability"]
+    },
+    {
+      "name": "comms",
+      "path": "plugins/comms",
+      "display_name": "Communications & Integrations",
+      "description": "6 communication skills: Google Calendar, Google Drive, GitHub operations, GitLab operations, Gmail, and internal comms.",
+      "tags": ["communication", "google", "github", "gitlab"]
+    },
+    {
+      "name": "media-and-data",
+      "path": "plugins/media-and-data",
+      "display_name": "Media & Data Processing",
+      "description": "4 skills: media processing, Slack GIF creator, Memvid video memory, and PKM (personal knowledge management).",
+      "tags": ["media", "data", "video", "knowledge"]
+    },
+    {
+      "name": "tools-and-integrations",
+      "path": "plugins/tools-and-integrations",
+      "display_name": "Tools & Integrations",
+      "description": "2 skills: Chrome DevTools integration and MCP builder for creating Model Context Protocol servers.",
+      "tags": ["tools", "chrome", "mcp", "devtools"]
+    }
+  ]
+}

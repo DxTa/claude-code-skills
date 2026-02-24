@@ -1,0 +1,17 @@
+{
+  "name": "core-thinking",
+  "display_name": "Core Thinking Frameworks",
+  "version": "1.0.0",
+  "description": "9 mental models for systematic problem-solving: collision-zone thinking, defense-in-depth validation, inversion exercise, meta-pattern recognition, root-cause tracing, scale game, simplification cascades, when-stuck strategies, and reasoning tools.",
+  "skills": [
+    "skills/collision-zone-thinking/SKILL.md",
+    "skills/defense-in-depth/SKILL.md",
+    "skills/inversion-exercise/SKILL.md",
+    "skills/meta-pattern-recognition/SKILL.md",
+    "skills/root-cause-tracing/SKILL.md",
+    "skills/scale-game/SKILL.md",
+    "skills/simplification-cascades/SKILL.md",
+    "skills/when-stuck/SKILL.md",
+    "skills/reasoning-tools/SKILL.md"
+  ]
+}

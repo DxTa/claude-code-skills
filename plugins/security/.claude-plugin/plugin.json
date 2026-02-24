@@ -1,0 +1,13 @@
+{
+  "name": "security",
+  "display_name": "Security",
+  "version": "1.0.0",
+  "description": "2 security skills for comprehensive security assessment and automated security testing/scanning.",
+  "skills": [
+    "skills/security-pro-pack/SKILL.md",
+    "skills/security-test-scanner/SKILL.md"
+  ],
+  "agents": [
+    "agents/security-engineer.md"
+  ]
+}

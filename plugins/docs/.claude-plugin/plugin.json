@@ -1,0 +1,19 @@
+{
+  "name": "docs",
+  "display_name": "Documentation",
+  "version": "1.0.0",
+  "description": "5 documentation skills for API docs generation and office document creation (DOCX, PDF, PPTX, XLSX).",
+  "skills": [
+    "skills/api-documentation-generator/SKILL.md",
+    "skills/docx/SKILL.md",
+    "skills/pdf/SKILL.md",
+    "skills/pptx/SKILL.md",
+    "skills/xlsx/SKILL.md"
+  ],
+  "agents": [
+    "agents/technical-writer.md"
+  ],
+  "commands": [
+    "commands/setup-docs.md"
+  ]
+}

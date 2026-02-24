@@ -1,0 +1,18 @@
+{
+  "name": "devops",
+  "display_name": "DevOps & Infrastructure",
+  "version": "1.0.0",
+  "description": "4 DevOps skills for Ansible playbooks, CI/CD pipelines, cloud cost optimization, and infrastructure as code generation.",
+  "skills": [
+    "skills/ansible-playbook-creator/SKILL.md",
+    "skills/ci-cd-pipeline-builder/SKILL.md",
+    "skills/cloud-cost-optimizer/SKILL.md",
+    "skills/infrastructure-as-code-generator/SKILL.md"
+  ],
+  "agents": [
+    "agents/devops-engineer.md"
+  ],
+  "commands": [
+    "commands/setup-ci-cd.md"
+  ]
+}

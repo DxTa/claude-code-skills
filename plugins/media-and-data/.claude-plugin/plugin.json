@@ -1,0 +1,12 @@
+{
+  "name": "media-and-data",
+  "display_name": "Media & Data Processing",
+  "version": "1.0.0",
+  "description": "4 skills for media processing, Slack GIF creation, Memvid video memory, and personal knowledge management (PKM).",
+  "skills": [
+    "skills/media-processing/SKILL.md",
+    "skills/slack-gif-creator/SKILL.md",
+    "skills/memvid/SKILL.md",
+    "skills/pkm/SKILL.md"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "display_name": "Frontend Development",
+  "version": "1.0.0",
+  "description": "5 frontend skills covering design patterns, development guidelines, UI styling, web artifacts building, and web framework best practices.",
+  "skills": [
+    "skills/frontend-design/SKILL.md",
+    "skills/frontend-development/SKILL.md",
+    "skills/ui-styling/SKILL.md",
+    "skills/web-artifacts-builder/SKILL.md",
+    "skills/web-frameworks/SKILL.md"
+  ],
+  "agents": [
+    "agents/frontend-specialist.md"
+  ]
+}

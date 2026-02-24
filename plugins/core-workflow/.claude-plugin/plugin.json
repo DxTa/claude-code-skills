@@ -1,0 +1,22 @@
+{
+  "name": "core-workflow",
+  "display_name": "Core Workflow Tools",
+  "version": "1.0.0",
+  "description": "5 workflow skills for code review, file-based planning, push-all deployment, skill creation, and spec analysis. Includes self-reflect and software-architect agents.",
+  "skills": [
+    "skills/code-review/SKILL.md",
+    "skills/planning-with-files/SKILL.md",
+    "skills/push-all/SKILL.md",
+    "skills/skill-creator/SKILL.md",
+    "skills/spec-analyzer/SKILL.md"
+  ],
+  "agents": [
+    "agents/self-reflect.md",
+    "agents/software-architect.md"
+  ],
+  "commands": [
+    "commands/setup-repo.md",
+    "commands/spec-analyze.md",
+    "commands/push-all.md"
+  ]
+}
