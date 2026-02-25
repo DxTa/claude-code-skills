@@ -1,13 +1,5 @@
 {
   "name": "backend",
-  "display_name": "Backend Development",
-  "version": "1.0.0",
-  "description": "2 backend skills for API development patterns, database design, and server-side architecture.",
-  "skills": [
-    "skills/backend-development/SKILL.md",
-    "skills/databases/SKILL.md"
-  ],
-  "agents": [
-    "agents/backend-specialist.md"
-  ]
+  "version": "1.0.1",
+  "description": "2 backend skills for API development patterns, database design, and server-side architecture."
 }

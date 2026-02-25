@@ -1,12 +1,5 @@
 {
   "name": "context-engineering",
-  "display_name": "Context Engineering",
-  "version": "1.0.0",
-  "description": "4 meta-skills for managing AI-assisted development workflows: master checklist, anti-patterns guide, agent selection framework, and token management. Adapted for Claude Code.",
-  "skills": [
-    "skills/master-checklist/SKILL.md",
-    "skills/anti-patterns/SKILL.md",
-    "skills/agent-selection/SKILL.md",
-    "skills/token-management/SKILL.md"
-  ]
+  "version": "1.0.1",
+  "description": "4 meta-skills for managing AI-assisted development workflows: master checklist, anti-patterns guide, agent selection framework, and token management. Adapted for Claude Code."
 }

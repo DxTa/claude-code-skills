@@ -1,10 +1,5 @@
 {
   "name": "tools-and-integrations",
-  "display_name": "Tools & Integrations",
-  "version": "1.0.0",
-  "description": "2 skills for Chrome DevTools integration and MCP (Model Context Protocol) server building.",
-  "skills": [
-    "skills/chrome-devtools/SKILL.md",
-    "skills/mcp-builder/SKILL.md"
-  ]
+  "version": "1.0.1",
+  "description": "2 skills for Chrome DevTools integration and MCP (Model Context Protocol) server building."
 }
