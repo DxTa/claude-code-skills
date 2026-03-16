@@ -19,6 +19,7 @@
     "canvas-design": "design/canvas-design",
     "chrome-devtools": "tools/chrome-devtools",
     "code-review": "core/code-review",
+    "context-management": "context-management",
     "finishing-a-development-branch": "core/finishing-a-development-branch",
     "comms/internal-comms": "comms/internal-comms",
     "databases": "backend/databases",

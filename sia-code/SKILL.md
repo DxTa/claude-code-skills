@@ -511,6 +511,8 @@ uvx sia-code embed start --idle-timeout 7200  # 2 hours
 uvx sia-code embed status
 ```
 
+If the status is uninitialized, must initialize the codebase with `uvx sia-code init && uvx sia-code index .`
+
 ### Stop Server
 
 ```bash

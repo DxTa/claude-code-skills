@@ -49,8 +49,8 @@ uuidgen | cut -c1-8
 
 | Tier | task_plan.md | notes.md | TodoWrite | Re-read |
 |------|--------------|----------|-----------|---------|
-| T1 | Optional | Skip | If 3+ steps | Skip |
-| T2 | Recommended | If research | Mandatory | Before major decisions |
+| T1 | Optional | Skip | Mandatory | Skip |
+| T2 | **Mandatory** | If research | Mandatory | Before major decisions |
 | T3+ | **Mandatory** | **Mandatory** | Mandatory | Before EVERY decision |
 
 ## Sync Protocol (Critical)
