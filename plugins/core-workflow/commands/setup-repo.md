@@ -26,6 +26,7 @@ Create a complete development guide including:
 ### 0.1 Detect Root-Level Instructions
 - Read repository-root `AGENTS.md` and `CLAUDE.md` if present.
 - Treat these as baseline instructions for the full repository.
+- When generating root instructions, create `CLAUDE.md` as a compatibility symlink to `AGENTS.md` unless the repository has a concrete reason to keep separate root files.
 
 ### 0.2 Detect Scoped Instructions for Subfolders
 - When analyzing files in a subfolder, scan that folder and its ancestors up to repo root for `AGENTS.md` / `CLAUDE.md`.
@@ -100,7 +101,7 @@ Create project-specific items based on: tech stack, architecture, domain, deploy
 
 ## Phase 4: Generate AGENTS.md
 
-Create `./AGENTS.md` with this structure. **Target: ~5,000 tokens max.**
+Create `./AGENTS.md` with this structure and create `./CLAUDE.md` as a symlink to `./AGENTS.md`. **Target: ~5,000 tokens max.**
 
 AGENTS.md should focus on:
 - Quick reference commands
@@ -327,6 +328,8 @@ Avoid duplicating large code blocks - reference files instead.
 
 This repository may include `AGENTS.md` and `CLAUDE.md` files at root and/or nested folders.
 
+At repository root, create `CLAUDE.md` as a compatibility symlink to `AGENTS.md` unless there is a concrete repo-specific reason to keep separate root files.
+
 ### How to Apply
 
 **For AI Assistants and Developers:**
@@ -383,6 +386,8 @@ This repository may include `AGENTS.md` and `CLAUDE.md` files at root and/or nes
 - [ ] 5-10 project-specific review items
 - [ ] Pitfalls from repo (not generic)
 - [ ] Instruction Files section included in AGENTS.md
+- [ ] `CLAUDE.md` created as symlink to `AGENTS.md`
+- [ ] Symlink target verified
 
 **Accuracy:**
 - [ ] Service names correct
@@ -416,8 +421,9 @@ This repository may include `AGENTS.md` and `CLAUDE.md` files at root and/or nes
 3. Execute Phases 1-5 sequentially
 4. Be specific - extract actual patterns
 5. Validate with checklist
-6. Write to `./AGENTS.md`
-7. Report findings
+6. Write `./AGENTS.md`
+7. Create `./CLAUDE.md` as a symlink to `./AGENTS.md`
+8. Report `AGENTS.md` and `CLAUDE.md -> AGENTS.md`
 
 **Key Points:**
 - **Discover instruction files first** - root + scoped `AGENTS.md` / `CLAUDE.md`
@@ -425,6 +431,7 @@ This repository may include `AGENTS.md` and `CLAUDE.md` files at root and/or nes
 - Extract, don't invent patterns
 - Include code review section
 - Include Instruction Files section
+- Create `CLAUDE.md` as a symlink to `AGENTS.md` and verify the target
 - Validate everything
 - **Token limit: 5,000 max for AGENTS.md**
 

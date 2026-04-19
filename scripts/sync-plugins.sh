@@ -122,7 +122,6 @@ PLUGIN_SKILLS[media-and-data]="
 "
 
 PLUGIN_SKILLS[tools-and-integrations]="
-    tools/chrome-devtools
     integration/mcp-builder
 "
 

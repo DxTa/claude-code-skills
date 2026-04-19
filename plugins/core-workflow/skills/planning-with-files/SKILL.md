@@ -107,6 +107,10 @@ If `write`/`edit` tools are not available (common in Plan mode or restricted too
 ## Decisions Made
 - [Decision]: [Rationale]
 
+## Delegation Summary
+Include only when subagents are dispatched.
+- [agent-name]: [objective] - [key finding or status]
+
 ## Errors Encountered
 - [Timestamp] [Error]: [Resolution]
 
@@ -157,6 +161,9 @@ Every error goes in task_plan.md. TodoWrite doesn't track error history.
 
 ### 5. Bridge to Graphiti
 At task end, extract learnings from task_plan.md to store in Graphiti memory.
+
+### 6. Record Delegation Only When Used
+If any subagent was dispatched, add a `Delegation Summary` section to `task_plan.md` with the selected agents, objectives, and key findings. If no delegation happened for a qualifying task, note the skip rationale in the plan status or decisions section.
 
 ## Recovery Scenario
 

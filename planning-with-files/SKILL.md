@@ -18,6 +18,7 @@ Use markdown files as durable working memory.
 2. Break work into phases.
 3. Record decisions and errors.
 4. Update status as you move between phases.
+5. Record delegation only when subagents are actually used.
 
 ## Recommended template
 
@@ -32,6 +33,9 @@ Use markdown files as durable working memory.
 - [ ] Verify
 
 ## Decisions Made
+
+## Delegation Summary
+Include only when subagents are dispatched.
 
 ## Errors Encountered
 

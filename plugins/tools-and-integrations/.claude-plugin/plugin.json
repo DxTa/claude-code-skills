@@ -1,5 +1,5 @@
 {
   "name": "tools-and-integrations",
-  "version": "1.0.1",
-  "description": "2 skills for Chrome DevTools integration and MCP (Model Context Protocol) server building."
+  "version": "1.0.2",
+  "description": "1 skill for Model Context Protocol (MCP) server building."
 }

@@ -1,6 +1,6 @@
 # Claude Code Skills Collection
 
-63 curated skills packaged as 13 installable plugins for Claude Code. Thinking frameworks, workflow automation, development best practices, and more.
+64 curated skills with 13 installable plugins for Claude Code, plus local-only workflow skills for OpenCode. Thinking frameworks, workflow automation, development best practices, and more.
 
 ## Installation
 
@@ -32,7 +32,7 @@ git submodule add https://github.com/dxta/claude-code-skills.git opencode/skills
 | security | 2 | 1 | - | Security pro pack, security scanner |
 | comms | 6 | - | - | GCal, GDrive, GitHub, GitLab, Gmail, internal comms |
 | media-and-data | 4 | - | - | Media processing, Slack GIFs, Memvid, PKM |
-| tools-and-integrations | 2 | - | - | Chrome DevTools, MCP builder |
+| tools-and-integrations | 1 | - | - | MCP builder |
 
 ## Repository Structure
 
@@ -76,6 +76,8 @@ Three root-level categories are not packaged as marketplace plugins:
 - **packs/** (2 skills) -- Composite skill packs (feature-dev, fullstack-starter-pack) that bundle other skills together. These reference skills across categories and are designed for OpenCode's pack-loading mechanism.
 
 These remain available when using the repository as a git submodule.
+
+Some root-level workflow skills may also remain intentionally local-only for OpenCode before they are packaged into marketplace plugins. At the moment, `core/personal-operating-layer` and `core/engineering-core-workflow` fall into that category.
 
 ## Development
 
