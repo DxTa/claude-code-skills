@@ -1,5 +1,0 @@
-{
-  "name": "core-workflow",
-  "version": "1.0.1",
-  "description": "5 workflow skills for code review, file-based planning, push-all deployment, skill creation, and spec analysis. Includes self-reflect and software-architect agents."
-}

@@ -1,5 +1,5 @@
 ---
-name: claude-code-skills
+name: skills
 description: Curated skills collection with installable plugins for Claude Code, plus local-only workflow skills for OpenCode
 ---
 
