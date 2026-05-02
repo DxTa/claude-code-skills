@@ -17,6 +17,7 @@
     "backend-development": "backend/backend-development",
     "brand-guidelines": "design/brand-guidelines",
     "canvas-design": "design/canvas-design",
+    "chrome-devtools": "tools/chrome-devtools",
     "code-review": "core/code-review",
     "context-management": "context-management",
     "engineering-core-workflow": "core/engineering-core-workflow",

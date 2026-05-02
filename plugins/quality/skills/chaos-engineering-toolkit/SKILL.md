@@ -1,3 +1,7 @@
+---
+name: chaos-engineering-toolkit
+description: Chaos engineering toolkit for testing system resilience through controlled failure injection and stress testing
+---
 # Chaos Engineering Toolkit
 
 Chaos engineering toolkit for testing system resilience through controlled failure injection and stress testing.

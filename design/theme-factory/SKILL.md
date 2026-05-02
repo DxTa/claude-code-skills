@@ -1,3 +1,7 @@
+---
+name: theme-factory
+description: Toolkit for styling artifacts with themes - 10 pre-set themes with colors/fonts
+---
 # Theme Factory
 
 Toolkit for styling artifacts with themes - 10 pre-set themes with colors and fonts.

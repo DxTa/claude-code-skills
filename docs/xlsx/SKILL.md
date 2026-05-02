@@ -1,3 +1,7 @@
+---
+name: xlsx
+description: Comprehensive spreadsheet creation/editing with formulas, formatting, data analysis, visualization, financial models
+---
 # XLSX
 
 Comprehensive spreadsheet creation, editing, data analysis, and visualization.

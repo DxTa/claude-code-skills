@@ -1,3 +1,7 @@
+---
+name: api-documentation-generator
+description: Generate comprehensive OpenAPI/Swagger documentation from existing APIs with interactive UIs, request/response examples, authentication docs, and multiple export formats
+---
 # API Documentation Generator
 
 Generate comprehensive OpenAPI/Swagger documentation from existing APIs with interactive UIs, request/response examples, authentication docs, and multiple export formats.

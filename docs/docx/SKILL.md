@@ -1,3 +1,7 @@
+---
+name: docx
+description: Word document creation/editing with tracked changes, comments, formatting, redlining for legal/professional docs
+---
 # DOCX
 
 Word document creation and editing with tracked changes, comments, and formatting.

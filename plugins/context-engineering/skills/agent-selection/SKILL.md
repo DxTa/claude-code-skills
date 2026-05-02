@@ -1,3 +1,7 @@
+---
+name: agent-selection
+description: Decision tree for selecting appropriate agents and tools based on task patterns
+---
 > **Claude Code Adapted**: This version has been adapted for Claude Code compatibility. The original OpenCode version is at the root of this repository under `core/agent-selection/SKILL.md`.
 
 ---

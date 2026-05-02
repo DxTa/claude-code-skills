@@ -1,3 +1,7 @@
+---
+name: cloud-cost-optimizer
+description: Cloud cost optimization and reporting for AWS, GCP, Azure - identify waste, rightsizing recommendations, reserved instance analysis, and cost allocation
+---
 # Cloud Cost Optimizer
 
 Cloud cost optimization and reporting for AWS, GCP, Azure.

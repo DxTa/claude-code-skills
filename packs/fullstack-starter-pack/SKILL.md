@@ -1,3 +1,7 @@
+---
+name: fullstack-starter-pack
+description: Fullstack development starter pack for React, Express/FastAPI, database design, and deployment
+---
 # Fullstack Starter Pack
 
 Fullstack development starter pack for React, Express/FastAPI, database design, and deployment.

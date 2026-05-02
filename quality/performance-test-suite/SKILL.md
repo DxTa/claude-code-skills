@@ -1,3 +1,7 @@
+---
+name: performance-test-suite
+description: Performance testing suite for load testing, stress testing, and bottleneck identification
+---
 # Performance Test Suite
 
 Performance testing suite for load testing, stress testing, and bottleneck identification.

@@ -1,3 +1,7 @@
+---
+name: infrastructure-as-code-generator
+description: Infrastructure as Code generator for Terraform, CloudFormation, and Pulumi
+---
 # Infrastructure as Code Generator
 
 Infrastructure as Code generator for Terraform, CloudFormation, and Pulumi.

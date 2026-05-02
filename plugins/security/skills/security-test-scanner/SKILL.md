@@ -1,3 +1,7 @@
+---
+name: security-test-scanner
+description: Security vulnerability scanner covering OWASP Top 10, injection flaws, XSS, CSRF, and authentication issues
+---
 # Security Test Scanner
 
 Security vulnerability scanner covering OWASP Top 10, injection flaws, XSS, CSRF, and authentication issues.

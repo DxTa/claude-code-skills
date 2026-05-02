@@ -1,3 +1,7 @@
+---
+name: anti-patterns
+description: Common mistakes to avoid with explanations and correct alternatives
+---
 > **Claude Code Adapted**: This version has been adapted for Claude Code compatibility. The original OpenCode version is at the root of this repository under `core/anti-patterns/SKILL.md`.
 
 ---

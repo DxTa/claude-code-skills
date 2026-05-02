@@ -1,3 +1,7 @@
+---
+name: aws-cost-operations
+description: AWS cost optimization, monitoring, billing analysis, Cost Explorer, CloudWatch, CloudTrail, Well-Architected Framework
+---
 # AWS Cost Operations
 
 AWS cost optimization, monitoring, billing analysis, Cost Explorer, CloudWatch, CloudTrail, and Well-Architected Framework.

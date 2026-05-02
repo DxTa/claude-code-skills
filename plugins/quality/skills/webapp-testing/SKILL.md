@@ -1,3 +1,7 @@
+---
+name: webapp-testing
+description: Toolkit for testing web applications using Playwright - frontend verification, screenshots, browser logs
+---
 # Webapp Testing
 
 Toolkit for testing web applications using Playwright - frontend verification, screenshots, browser logs.

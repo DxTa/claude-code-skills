@@ -1,3 +1,7 @@
+---
+name: ansible-playbook-creator
+description: Ansible playbook creator for configuration management and server automation
+---
 # Ansible Playbook Creator
 
 Ansible playbook creator for configuration management and server automation.

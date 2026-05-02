@@ -86,24 +86,24 @@ gh run view 123456789 --repo org/repo --log-failed
 3. **Composability**: Can chain commands using the same repo reference
 4. **Clarity**: Command intent is immediately visible
 
-## Claude Attribution
+## Attribution Signature
 
-When posting comments or reviews on behalf of the user, **always include the Claude signature** at the end of the message body to indicate it was AI-generated.
+When posting comments or reviews on behalf of the user, **always include an attribution signature** at the end of the message body to indicate it was AI-generated. Use the name of the current tool (OpenCode, Claude Code, etc.) — detect which TUI app is running this session and use its name.
 
 ### Signature Format
 
 ```
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with [Current Tool Name]
 ```
 
 ### Usage Examples
 
-**PR Review with signature**:
+**PR Review with signature** (OpenCode example — adapt to current tool):
 ```bash
 gh pr review 42 --approve --body "$(cat <<'EOF'
 LGTM! The implementation looks solid.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -113,7 +113,7 @@ EOF
 gh issue comment 15 --body "$(cat <<'EOF'
 I've identified the root cause - the timeout occurs because...
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -123,7 +123,7 @@ EOF
 gh pr comment 7 --body "$(cat <<'EOF'
 This approach could cause a race condition. Consider using a mutex here.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -154,12 +154,12 @@ Identify which GitHub operation is needed:
 
 #### Pull Request Operations
 
-**Create PR** (from current branch, include Claude signature in body):
+**Create PR** (from current branch, include attribution signature in body):
 ```bash
 gh pr create --title "Feature: Add login" --body "$(cat <<'EOF'
 Implements user authentication.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -193,18 +193,18 @@ gh pr merge [number] --merge   # Merge commit
 gh pr merge [number] --rebase  # Rebase merge
 ```
 
-**Review PR** (include Claude signature):
+**Review PR** (include attribution signature):
 ```bash
 gh pr review [number] --approve --body "$(cat <<'EOF'
 LGTM!
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 gh pr review [number] --request-changes --body "$(cat <<'EOF'
 Please fix the null check on line 42.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -213,18 +213,18 @@ See `{baseDir}/references/gh-pr-workflows.md` for advanced patterns.
 
 #### Issue Operations
 
-**Create issue** (include Claude signature in body):
+**Create issue** (include attribution signature in body):
 ```bash
 gh issue create --title "Bug: Login fails" --body "$(cat <<'EOF'
 Steps to reproduce...
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 gh issue create --label bug --assignee @me --title "Bug title" --body "$(cat <<'EOF'
 Description here.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -241,12 +241,12 @@ gh issue list --assignee @me
 gh issue view [number]
 ```
 
-**Comment on issue** (include Claude signature):
+**Comment on issue** (include attribution signature):
 ```bash
 gh issue comment [number] --body "$(cat <<'EOF'
 Working on this now.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -257,7 +257,7 @@ gh issue close [number]
 gh issue close [number] --comment "$(cat <<'EOF'
 Fixed in PR #123.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```

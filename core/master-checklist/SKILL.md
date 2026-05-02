@@ -1,3 +1,7 @@
+---
+name: master-checklist
+description: Detailed guidance for MASTER CHECKLIST steps with tier-specific requirements
+---
 > **Claude Code Adapted**: This version has been adapted for Claude Code compatibility. The original OpenCode version is at the root of this repository under `core/master-checklist/SKILL.md`.
 
 ---

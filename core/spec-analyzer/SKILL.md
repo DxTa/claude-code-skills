@@ -18,7 +18,18 @@ This skill helps identify gaps, ambiguities, and edge cases BEFORE you start pla
 - Jira ticket needs clarification ("JIRA-123")
 - Vague feature request ("build a login system")
 - Requirements seem incomplete or ambiguous
+- User asks to grill, stress-test, or challenge a spec/plan/design before implementation
+- User wants validation against `CONTEXT.md`, `CONTEXT-MAP.md`, ADRs, or project domain language
 - Before T3+ tasks requiring detailed planning
+
+## Mode Selection
+
+Use the lightest mode that resolves the user's need:
+
+1. **Standard Spec Analysis** - for vague requirements, Jira tickets, and feature requests that need an enhanced spec.
+2. **Docs-Aware Grilling** - for stress-testing a plan/spec/design against the codebase, domain language, and recorded decisions before planning.
+
+If requirements are already finalized and the user wants a one-shot risk review, use `self-reflect` instead. If requirements are unresolved, stay in `spec-analyzer` and grill before planning.
 
 ## Prerequisites
 
@@ -66,6 +77,43 @@ If you have mcp-atlassian configured, you can analyze Jira tickets directly. Jus
 **1c. Review project context:**
 - Check relevant files, docs, existing patterns
 - Understand current architecture where feature will live
+
+**1d. Docs-aware context (required for grilling mode):**
+- Look for `CONTEXT.md` at the repo root.
+- Look for `CONTEXT-MAP.md`; if present, use it to find context-specific `CONTEXT.md` and `docs/adr/` locations.
+- Look for `docs/adr/` and nearby ADR directories in the affected area.
+- Search code when a question can be answered from repository state instead of asking the user.
+
+### Phase 1b: Docs-Aware Grilling Mode
+
+Use this mode when the user asks to "grill", "stress test", "challenge", or validate a spec/plan/design against domain docs.
+
+**Core rule:** Interview one decision at a time until the decision tree is resolved enough for planning. Do not batch questions.
+
+For each question:
+- Ask exactly one question.
+- Explain why it matters.
+- Provide your recommended answer.
+- State the consequence of choosing the main alternative when useful.
+
+**Do not ask what the repo can answer.** If code, docs, memory, or ADRs can answer the question, inspect those first and present the finding.
+
+**Challenge terminology:**
+- If the user uses a vague term, propose a precise canonical term.
+- If the term conflicts with `CONTEXT.md`, flag the conflict immediately.
+- If code contradicts the user's stated model, surface the contradiction and ask which source should win.
+
+**Walk dependencies in order:**
+- Resolve upstream domain/user behavior decisions before downstream implementation details.
+- Do not ask rollout or task-boundary questions until core behavior and constraints are clear.
+
+**ADR candidates:**
+Only mark a decision as an ADR candidate when all are true:
+- hard to reverse
+- surprising without context
+- real trade-off with credible alternatives
+
+Do not create or edit `CONTEXT.md` or ADR files automatically in this mode. List recommended updates for explicit follow-up.
 
 ### Phase 2: Socratic Questioning
 
@@ -166,6 +214,13 @@ I recommend Option 1 because [reasoning based on requirements and constraints].
    - Acceptance criteria
    - Manual testing steps
 
+6. **Docs-Aware Grilling Addendum** (only when grilling mode was used)
+   - Domain terms
+   - Resolved decisions
+   - ADR candidates
+   - Remaining open questions
+   - Ready for planning: yes/no
+
 ## Output Format
 
 ### Store Enhanced Spec in notes.md
@@ -195,8 +250,20 @@ I recommend Option 1 because [reasoning based on requirements and constraints].
 ### Testing Strategy
 [Test cases, acceptance criteria]
 
+### Domain Terms
+[Existing terms used, fuzzy/conflicting terms resolved, terms to record later]
+
+### Resolved Decisions
+[Decision, rationale, alternatives considered]
+
+### ADR Candidates
+[Only hard-to-reverse, surprising, trade-off decisions]
+
 ### Open Questions
 [Any unresolved items]
+
+### Ready For Planning
+[Yes/No with reason]
 
 ---
 
@@ -239,10 +306,13 @@ Continue with MASTER CHECKLIST → task_plan.md
 3. **Multiple choice preferred:** Easier to answer when possible
 4. **Skip resolved questions:** If memory shows "we always use X", don't ask
 5. **Apply project patterns:** Reference past decisions (e.g., "per JIRA-789 pattern")
-6. **YAGNI ruthlessly:** Remove unnecessary features from all designs
-7. **Explore alternatives:** Always propose 2-3 approaches before settling
-8. **Incremental validation:** Present spec in sections, validate each
-9. **Be flexible:** Go back and clarify when something doesn't make sense
+6. **Repo answers first:** If code/docs can answer a question, inspect them instead of asking
+7. **Domain language discipline:** Use `CONTEXT.md` terms and flag conflicts
+8. **ADR discipline:** Suggest ADRs only for hard-to-reverse, surprising trade-offs
+9. **YAGNI ruthlessly:** Remove unnecessary features from all designs
+10. **Explore alternatives:** Always propose 2-3 approaches before settling
+11. **Incremental validation:** Present spec in sections, validate each
+12. **Be flexible:** Go back and clarify when something doesn't make sense
 
 ## Examples
 
@@ -281,6 +351,18 @@ Continue with MASTER CHECKLIST → task_plan.md
 1. "What type of reports will this show? (a) Financial metrics, (b) User analytics, (c) System performance, (d) Custom"
 2. "Who are the primary users? (a) Executives, (b) Analysts, (c) Developers, (d) All"
 3. ... (continue standard questioning)
+
+### Example 4: Docs-Aware Grilling
+
+**User:** "Grill this plan against our domain docs before I split it into tasks."
+
+**Agent Actions:**
+1. Read the plan and relevant code/docs.
+2. Check `CONTEXT.md`, `CONTEXT-MAP.md`, and `docs/adr/` when present.
+3. Ask one decision question at a time:
+   - ✅ "Your plan says 'account', but `CONTEXT.md` distinguishes Customer from User. I recommend using User here because this touches authentication state. Do you mean User?"
+   - ❌ "What are the domain terms, rollout plan, testing strategy, and data model?"
+4. Record resolved terms, decisions, ADR candidates, and whether the spec is ready for planning.
 
 ## After Spec Analysis
 

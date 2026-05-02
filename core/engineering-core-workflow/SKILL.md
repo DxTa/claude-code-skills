@@ -60,7 +60,9 @@ For non-trivial engineering work, maintain durable task continuity.
 Prefer structured retrieval and repo-aware search before repetitive shell exploration.
 
 - use `sia-code` when the index is healthy and the query is code-oriented
+- for code-oriented engineering tasks, start with `sia-code_engineering_bootstrap`; if health is stale or degraded, fall back to `glob`/`grep` or ask before indexing
 - use `glob`/`grep` for markdown, plans, notes, and config-heavy discovery
+- for Chrome DevTools MCP, prefer an existing Chrome remote debugging endpoint and distinguish MCP server processes from browser processes before assuming Chrome was relaunched
 - if retrieval is unhealthy or inappropriate for the artifact type, fall back explicitly instead of silently pretending no context exists
 
 ### 3. Debug Before Fixing

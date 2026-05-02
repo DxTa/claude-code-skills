@@ -280,7 +280,7 @@ glab issue note 42 -m "$(cat <<'EOF'
 1. Root cause identified
 2. Fix in progress
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -377,7 +377,7 @@ glab issue update 42 --assignee @me --label "in-progress"
 glab issue note 42 -m "$(cat <<'EOF'
 Taking this on. Will investigate and provide update by EOD.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -408,7 +408,7 @@ What actually happens.
 - Browser/Version:
 - GitLab Version:
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -435,7 +435,7 @@ Other approaches considered.
 ## Additional Context
 Any other relevant information.
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```

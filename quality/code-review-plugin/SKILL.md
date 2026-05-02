@@ -1,3 +1,7 @@
+---
+name: code-review-plugin
+description: Automated PR code review using multiple specialized agents with confidence-based scoring - CLAUDE.md compliance, bug detection, and git history analysis
+---
 # Code Review Plugin
 
 Automated PR code review using multiple specialized agents with confidence-based scoring - CLAUDE.md compliance, bug detection, and git history analysis.

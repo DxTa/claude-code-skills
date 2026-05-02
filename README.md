@@ -1,3 +1,8 @@
+---
+name: claude-code-skills
+description: Curated skills collection with installable plugins for Claude Code, plus local-only workflow skills for OpenCode
+---
+
 # Claude Code Skills Collection
 
 64 curated skills with 13 installable plugins for Claude Code, plus local-only workflow skills for OpenCode. Thinking frameworks, workflow automation, development best practices, and more.

@@ -1,3 +1,7 @@
+---
+name: test-coverage-analyzer
+description: Test coverage analyzer for identifying untested code and analyzing coverage metrics
+---
 # Test Coverage Analyzer
 
 Test coverage analyzer for identifying untested code and analyzing coverage metrics.

@@ -1,3 +1,7 @@
+---
+name: token-management
+description: Token budget awareness, compression strategies, and observation masking for optimal context usage
+---
 > **Claude Code Adapted**: This version has been adapted for Claude Code compatibility. The original OpenCode version is at the root of this repository under `core/token-management/SKILL.md`.
 
 ---

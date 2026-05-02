@@ -1,3 +1,7 @@
+---
+name: feature-dev
+description: Structured 7-phase feature development workflow with specialized agents - discovery, codebase exploration, clarifying questions, architecture design, implementation, quality review, and summary
+---
 # Feature Dev
 
 Structured 7-phase feature development workflow with specialized agents - discovery, codebase exploration, clarifying questions, architecture design, implementation, quality review, and summary.

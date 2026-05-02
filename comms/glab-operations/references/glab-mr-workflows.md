@@ -94,7 +94,7 @@ glab mr note 42 -m "$(cat <<'EOF'
 1. Consider adding error handling
 2. Missing unit tests for edge cases
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
@@ -364,7 +364,7 @@ Fixes #42
 
 This MR resolves the login timeout issue by...
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+🤖 Generated with OpenCode
 EOF
 )"
 ```
