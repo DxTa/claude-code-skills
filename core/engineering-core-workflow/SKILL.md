@@ -12,6 +12,7 @@ This skill is the engineering-only rigor layer.
 It should activate only when the task intent is clearly software-engineering work.
 
 Its job is to turn a broad engineering request into a disciplined execution flow using:
+
 - planning and continuity
 - retrieval-first exploration
 - systematic debugging
@@ -22,6 +23,7 @@ Its job is to turn a broad engineering request into a disciplined execution flow
 ## Activation Criteria
 
 Load this skill when the task is primarily about:
+
 - implementing or fixing code
 - refactoring or behavior changes
 - debugging or root-cause analysis
@@ -30,6 +32,7 @@ Load this skill when the task is primarily about:
 - agent workflow or automation changes that govern engineering execution
 
 Do not load this skill for tasks that are merely:
+
 - simple safe shell commands
 - pure research or comparison without engineering execution
 - lightweight docs or communication tasks
@@ -37,7 +40,8 @@ Do not load this skill for tasks that are merely:
 ## Required Companion Skills
 
 Once active, strongly prefer the following companion skills as needed:
-- `planning-with-files`
+
+- `planning-with-files` — use as continuity/sync discipline for the existing active plan file; do not create a separate plan when pi-plan-auto or another planning tool already supplied one
 - `context-management`
 - `systematic-debugging`
 - `test-driven-development`
@@ -51,8 +55,8 @@ Once active, strongly prefer the following companion skills as needed:
 
 For non-trivial engineering work, maintain durable task continuity.
 
-- use `planning-with-files`
-- keep task plans current
+- use `planning-with-files` against the existing active plan file when one exists
+- keep the active plan file current instead of creating duplicate plan artifacts
 - treat todos as live execution state and plans as durable context
 
 ### 2. Retrieval-First Exploration
@@ -68,6 +72,7 @@ Prefer structured retrieval and repo-aware search before repetitive shell explor
 ### 3. Debug Before Fixing
 
 When facing failures or unexpected behavior:
+
 - load `systematic-debugging`
 - identify root cause before proposing fixes
 - avoid speculative changes
@@ -84,6 +89,7 @@ For feature work and bug fixes, follow TDD unless a concrete exception applies.
 ### 5. Verification Gate
 
 Before claiming success:
+
 - run the proving command fresh
 - inspect output and exit status
 - state the result only with evidence
@@ -93,6 +99,7 @@ Before claiming success:
 For review requests, lead with findings, not summaries.
 
 Prioritize:
+
 - bugs
 - regressions
 - missing tests
@@ -100,16 +107,41 @@ Prioritize:
 
 ## Delegation Model
 
-Use subagents when they materially improve throughput or quality.
+Use `Agent({ subagent_type, prompt, inherit_context })` from `@tintinweb/pi-subagents` when delegation materially improves throughput or quality.
+
+### When to delegate
+
+| Step           | Inline or Delegate | When                                                                    |
+| -------------- | ------------------ | ----------------------------------------------------------------------- |
+| Status check   | Inline             | Always trivial                                                          |
+| Continuity     | Inline             | Read plan file                                                          |
+| Planning       | Inline             | Most cases                                                              |
+| Retrieval      | Inline or Delegate | Inline for targeted, `Explore` for broad recon                          |
+| Implementation | Inline             | Main agent + TDD skill                                                  |
+| Verification   | Inline or Delegate | Inline for simple, `Agent({ subagent_type: "verifier" })` for high-risk |
+| Review         | Delegate           | `Agent({ subagent_type: "code-reviewer" })` for fresh eyes              |
+| Parallel recon | Delegate           | `Agent({ subagent_type: "Explore", run_in_background: true })` × N      |
+
+### Delegation patterns
+
+```
+# Foreground — parent waits (natural boomerang replacement)
+Agent({ subagent_type: "verifier", prompt: "Verify all claims...", inherit_context: true })
+
+# Background — parallel work
+Agent({ subagent_type: "Explore", prompt: "Map the auth module", run_in_background: true })
+```
 
 - parallelize analysis when scopes do not overlap
 - serialize edits when file ownership overlaps
 - keep final synthesis and integration in the parent
 - document delegation in the task plan when used
+- subagents cannot spawn further subagents — parent always orchestrates
 
 ## Anti-Patterns
 
 Avoid:
+
 - loading full engineering rigor for non-engineering work
 - calling retrieval-first while actually thrashing in shell
 - claiming verification without fresh command output
@@ -119,6 +151,7 @@ Avoid:
 ## Success Condition
 
 This skill is working when engineering tasks show:
+
 - stronger planning continuity
 - less shell churn
 - better debugging discipline

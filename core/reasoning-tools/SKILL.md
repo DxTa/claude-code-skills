@@ -374,6 +374,40 @@ Ask yourself:
 
 ---
 
+## ⚠️ Shannon Validation Failures — Critical Reference
+
+Shannon-thinking has a **24% validation failure rate** in practice. The most common errors:
+
+| Error | Wrong | Correct |
+|-------|-------|--------|
+| Casing | `next_thoughtNeeded` | `nextThoughtNeeded` |
+| Casing | `thought_type` | `thoughtType` |
+| Missing field | omitting `assumptions` | `assumptions: []` (always include, even if empty) |
+| Missing field | omitting `dependencies` | `dependencies: []` (always include) |
+
+### Minimal Valid Shannon Call (copy this template)
+
+```json
+{
+  "thought": "PROBLEM: <core problem stripped to essentials>\nUNKNOWN: <what we don't know yet>\nSCOPE: <boundaries>",
+  "thoughtType": "problem_definition",
+  "thoughtNumber": 1,
+  "totalThoughts": 3,
+  "uncertainty": 0.7,
+  "dependencies": [],
+  "assumptions": ["<explicit assumption>"],
+  "nextThoughtNeeded": true
+}
+```
+
+**All required fields** (camelCase, no brackets): `thought`, `thoughtType`, `thoughtNumber`, `totalThoughts`, `uncertainty`, `dependencies`, `assumptions`, `nextThoughtNeeded`
+
+### Fallback Rule
+
+**If shannon validation fails once → switch to `code_reasoning_code-reasoning` for the session.** Do not retry with corrected params. The structured methodology can be approximated in code-reasoning using headings: `PROBLEM DEFINITION:`, `CONSTRAINTS:`, `ASSUMPTIONS:`.
+
+---
+
 ## Common Mistakes
 
 ### ❌ Wrong Tool Choice
@@ -396,6 +430,12 @@ Ask yourself:
 **Impact:** No clear model, hard to validate correctness
 **Fix:** Start with shannon-thinking for high-level design
 
+### ❌ Shannon Schema Errors
+
+**Mistake:** Using snake_case params or omitting required fields
+**Impact:** Validation failure, wasted turns on retries
+**Fix:** Use the minimal valid call template above. Never retry on validation failure.
+
 ---
 
 ## Usage
@@ -407,3 +447,8 @@ Load this skill when:
 - Building multi-phase solution (integration strategy)
 
 **Quick check:** "Is this exploratory iteration or structured analysis?"
+
+**Phase-specific rule:**
+- Planning/brainstorming/requirements → start with shannon (2-3 thoughts: problem_definition → constraints)
+- Implementation/debugging → use code-reasoning
+- Quick action (simple edit, known bug, lookup) → neither tool needed
