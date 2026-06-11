@@ -1,11 +1,11 @@
 ---
 name: skills
-description: Curated skills collection with installable plugins for Claude Code, plus local-only workflow skills for OpenCode
+description: Curated Agent Skills collection with installable plugins for Claude Code and directory-based use in Pi, OpenCode, and Codex
 ---
 
-# Claude Code Skills Collection
+# Agent Skills Collection
 
-64 curated skills with 13 installable plugins for Claude Code, plus local-only workflow skills for OpenCode. Thinking frameworks, workflow automation, development best practices, and more.
+Curated Agent Skills with installable Claude Code plugins and directory-based skills for Pi, OpenCode, Codex, and other tools that load `SKILL.md` directories.
 
 ## Installation
 
@@ -15,11 +15,28 @@ description: Curated skills collection with installable plugins for Claude Code,
 2. Add marketplace from GitHub: `dxta/claude-code-skills`
 3. Browse and install individual plugins
 
-### As a Git Submodule (for OpenCode users)
+### As a Git Submodule for Directory-Based Tools
+
+Recommended neutral path:
 
 ```bash
-git submodule add https://github.com/dxta/claude-code-skills.git opencode/skills
+git submodule add https://github.com/dxta/claude-code-skills.git ai/skills/mine
 ```
+
+Then expose the repo to each tool with symlinks or an installer:
+
+```bash
+# OpenCode
+ln -s ../ai/skills/mine ~/.config/opencode/skills
+
+# Pi coding agent
+ln -s /path/to/repo/ai/skills/mine ~/.pi/agent/skills/mine
+
+# Codex
+ln -s /path/to/repo/ai/skills/mine/core/systematic-debugging ~/.codex/skills/systematic-debugging
+```
+
+For multi-source setups, keep this repo as the public `mine/` source and compose private or third-party skills outside this repository.
 
 ## Plugin Catalog
 
@@ -41,12 +58,12 @@ git submodule add https://github.com/dxta/claude-code-skills.git opencode/skills
 
 ## Repository Structure
 
-This repository serves a dual purpose:
+This repository serves two use cases:
 
-- **Root level** -- the source of truth. Skills are organized by category (`core/`, `frontend/`, `backend/`, etc.) with each skill in its own directory containing a `SKILL.md`. This layout is directly compatible with OpenCode's skill-loading system.
-- **`plugins/` directory** -- the Claude Code marketplace overlay. Each plugin has a `.claude-plugin/plugin.json` manifest and a `skills/` directory of symlinks pointing back to the root-level skill sources. Some plugins also include `agents/` and `commands/` directories.
+- **Root-level skill sources** -- Categories such as `core/`, `frontend/`, `backend/`, etc. contain skills in `<category>/<skill-name>/SKILL.md` layout. This is the source of truth and is compatible with tools that recursively load `SKILL.md` directories.
+- **`plugins/` marketplace overlay** -- Claude Code plugin packages. Each plugin has a `.claude-plugin/plugin.json` manifest and a `skills/` directory of symlinks pointing back to root-level sources. Some plugins also include `agents/` and `commands/` directories.
 
-```
+```text
 claude-code-skills/
   core/                        # Root-level skill sources
     collision-zone-thinking/
@@ -74,27 +91,35 @@ claude-code-skills/
 
 ## Skills Not in Marketplace
 
-Three root-level categories are not packaged as marketplace plugins:
+Some root-level skills are intentionally available only when using the repository directly as a directory/submodule source.
 
-- **sia-code/** (3 skills) -- Tightly coupled to the sia-code CLI tool for codebase indexing and memory. Requires local sia-code installation and is specific to the OpenCode workflow.
-- **aws/** (3 skills) -- AWS CDK, cost operations, and serverless EDA. Kept separate due to cloud-provider specificity; intended for users who opt in explicitly.
-- **packs/** (2 skills) -- Composite skill packs (feature-dev, fullstack-starter-pack) that bundle other skills together. These reference skills across categories and are designed for OpenCode's pack-loading mechanism.
+Examples:
 
-These remain available when using the repository as a git submodule.
-
-Some root-level workflow skills may also remain intentionally local-only for OpenCode before they are packaged into marketplace plugins. At the moment, `core/personal-operating-layer` and `core/engineering-core-workflow` fall into that category.
+- **aws/** -- AWS CDK, cost operations, and serverless EDA. Kept separate due to cloud-provider specificity; intended for explicit opt-in.
+- **packs/** -- Composite skill packs (feature-dev, fullstack-starter-pack) that reference skills across categories.
+- Some local workflow skills may remain directory-only before they are packaged into marketplace plugins.
 
 ## Development
 
 ### Updating Skills
 
-Edit skill files at root level (e.g., `core/when-stuck/SKILL.md`). Run `scripts/sync-plugins.sh` to regenerate plugin symlinks.
+Edit skill files at root level, e.g.:
+
+```text
+core/when-stuck/SKILL.md
+```
+
+Then regenerate plugin symlinks if plugin packaging changed:
+
+```bash
+scripts/sync-plugins.sh
+```
 
 ### Adding a New Skill
 
 1. Create `<category>/<skill-name>/SKILL.md`
 2. Add an entry to `index.json`
-3. Update the relevant plugin's symlinks and `plugin.json`
+3. Update the relevant plugin's symlinks and `plugin.json` if it should ship as a Claude Code plugin
 4. Run `scripts/sync-plugins.sh`
 
 ## License
