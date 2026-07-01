@@ -1,6 +1,6 @@
 ---
 name: personal-operating-layer
-description: Mandatory routing and preference layer for non-trivial root tasks. Enforces skill-suggests, applies personal collaboration defaults, and proactively activates persona skills.
+description: Mandatory routing and preference layer for non-trivial root tasks. Conditionally invokes skill-suggests for domain/tool tasks, applies personal collaboration defaults, and proactively activates persona skills.
 ---
 
 # Personal Operating Layer
@@ -48,14 +48,30 @@ For continuation messages, say `[CONTINUATION FAST-PATH]` and reuse the already-
 
 For each non-trivial root task:
 
-1. Invoke `skill-suggests` with the user request.
-2. Review the suggested skills through this personal policy layer.
+1. Assess whether `skill-suggests` would add value (see **When to invoke skill-suggests** below).
+2. If invoked, review the suggested skills through this personal policy layer.
 3. Load the recommended skills that materially help.
-4. Based on the task intent and the "Route map", choose the right route prompt chain to continue
+4. Based on the task intent and the "Route map", choose the right route prompt chain to continue.
 
-Do not skip `skill-suggests` for non-trivial root tasks.
+### When to invoke skill-suggests
 
-If the user explicitly names a route, skill, or subagent, treat that as strong routing input, not permission to skip `skill-suggests`. The suggested result may still be `No specific skill needed - explicit route is sufficient.`
+Invoke `skill-suggests` (at most once per root task) when:
+
+- The task enters a **known tool or domain surface** (herdr, deploy/VSS, perf-*, ai-platform, mlflow, byob, deepstream, video-analytics, video-search, rt-vlm, evaluation, deployment) and you have not already identified the right skill.
+- You are **genuinely uncertain** which skill applies — the task mentions an unfamiliar domain or tool.
+- The user explicitly asks for skill discovery ("is there a skill for X?").
+
+**Skip skill-suggests** when:
+
+- The task is **pure methodology** (planning, debugging, refactoring, TDD, code review, brainstorming) — you already embody these; loading their SKILL.md adds cost without value.
+- You already know which skill to load from context (e.g. cwd is inside a known domain repo).
+- The task is a **continuation** of an active plan (`[CONTINUATION FAST-PATH]`).
+- The task is a **simple/existing task** where the action is clear and no domain skill is involved.
+- The user has already explicitly named a route, skill, or subagent.
+
+When passing task context to `skill-suggests`, always include the current working directory (cwd) so path-gated skills can be filtered correctly.
+
+If `skill-suggests` is skipped, proceed directly with personal-operating-layer routing. No explanation needed.
 
 Invoke `skill-suggests` at most once per root task. Never retry in the same turn.
 
@@ -75,14 +91,14 @@ If `skill-suggests` fails, times out, or reaches max turns, fail open transparen
 
 ### 2. Skill Weighting
 
-Treat `skill-suggests` as mandatory input, not automatic authority.
+Treat `skill-suggests` output as advisory input, not automatic authority.
 
 When reviewing suggested skills:
 
-- prefer process skills before implementation skills
+- **only load skills carrying non-inferable knowledge** — tool commands, repo invariants, domain procedures, API workflows
+- reject generic methodology skills unless you genuinely need the SKILL.md content (rare)
 - prefer one strong relevant workflow skill over many weakly relevant skills
-- load domain skills only when the task genuinely enters that domain
-- reject decorative or redundant skills when they do not improve the task
+- load domain skills only when the task genuinely enters that domain AND cwd confirms it
 
 ### 3. Persona Activation Policy
 
@@ -134,7 +150,10 @@ E.g:
 
 This skill is working when:
 
-- non-trivial tasks always run through `skill-suggests`
+- `skill-suggests` fires only when domain/tool uncertainty exists, not on every session
+- suggested skills are predominantly domain/tool skills with non-inferable knowledge
+- follow-through rate is above 30% (suggestions that get loaded)
+- generic methodology skills are NOT being suggested or loaded unnecessarily
 - persona activation feels active but not chaotic
 - engineering rigor turns on only when the task actually needs it
 - outputs feel more aligned with personal preferences without sacrificing correctness
