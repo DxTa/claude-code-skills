@@ -21,14 +21,14 @@ Use it to:
 
 ## Route map
 
-| Intent               | Route to                                                                          |
-| -------------------- | --------------------------------------------------------------------------------- |
-| Engineering Tier 3+  | `engineering-core-workflow` skill (adaptive)                                      |
-| Engineering Tier 1-2 | `engineering-core-workflow` skill (lightweight)                                   |
-| Exploration          | `Agent({ subagent_type: "Explore", prompt: "...", inherit_context: true })`       |
-| Verification         | `Agent({ subagent_type: "verifier", prompt: "...", inherit_context: true })`      |
-| Review               | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: true })` |
-| Other                | Load suggested skills, proceed                                                    |
+| Intent               | Route to                                                                                                          |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Engineering Tier 3+  | `engineering-core-workflow` skill (adaptive) + Ponytail minimality pass if available, otherwise ladder inline   |
+| Engineering Tier 1-2 | `engineering-core-workflow` skill (lightweight) + Ponytail minimality pass if available, otherwise ladder inline |
+| Exploration          | `Agent({ subagent_type: "explore", prompt: "...", inherit_context: true })`                                   |
+| Verification         | `Agent({ subagent_type: "verifier", prompt: "...", inherit_context: true })`                                  |
+| Review               | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: true })` + Ponytail delete-list pass |
+| Other                | Load suggested skills, proceed                                                                                    |
 
 ## When To Load
 
@@ -109,6 +109,7 @@ If a persona skill could materially improve the task, load it without waiting fo
 Examples:
 
 - token pressure or explicit brevity -> `caveman`
+- implementation, refactor, or review where smallest correct diff matters -> `ponytail` if available, otherwise apply the ladder inline
 - code review or critique -> review-oriented persona/skill
 - executive synthesis or tradeoff framing -> management or CTO persona
 - teaching or explanation -> explanatory persona

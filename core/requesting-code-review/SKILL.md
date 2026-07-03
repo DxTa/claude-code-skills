@@ -7,7 +7,7 @@ description: Use when completing tasks, implementing major features, or before m
 
 Dispatch code-reviewer subagent to catch issues before they cascade.
 
-**Core principle:** Review early, review often.
+**Core principle:** Review early, review often, then trim needless complexity.
 
 ## When to Request Review
 
@@ -40,7 +40,12 @@ Use Task tool with code-reviewer type, fill template at `code-reviewer.md`
 - `{HEAD_SHA}` - Ending commit
 - `{DESCRIPTION}` - Brief summary
 
-**3. Act on feedback:**
+**3. Run Ponytail delete-list pass on same diff:**
+- Use `/ponytail-review` when available
+- If command is unavailable, apply the same checklist inline: reuse existing helper, stdlib/native first, delete speculative flexibility, shrink wrappers, drop unneeded deps
+- Always do this for non-trivial diffs; especially when adding abstractions, wrappers, config, or extra files
+
+**4. Act on feedback:**
 - Fix Critical issues immediately
 - Fix Important issues before proceeding
 - Note Minor issues for later
@@ -78,6 +83,7 @@ You: [Fix progress indicators]
 
 **Subagent-Driven Development:**
 - Review after EACH task
+- Run Ponytail delete-list pass after correctness review
 - Catch issues before they compound
 - Fix before moving to next task
 

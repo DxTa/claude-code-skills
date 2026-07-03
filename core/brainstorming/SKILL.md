@@ -43,12 +43,14 @@ Start by understanding the current project context, then ask questions one at a 
 - Ask: "Ready to set up for implementation?"
 - Use using-git-worktrees to create isolated workspace
 - Use writing-plans to create detailed implementation plan
+- Carry Ponytail forward: command if available, otherwise inline ladder / YAGNI checklist in the implementation handoff
 
 ## Key Principles
 
 - **One question at a time** - Don't overwhelm with multiple questions
 - **Multiple choice preferred** - Easier to answer than open-ended when possible
 - **YAGNI ruthlessly** - Remove unnecessary features from all designs
+- **Ponytail carry-through** - Turn the final design into the smallest correct implementation path, even when Ponytail commands are unavailable
 - **Explore alternatives** - Always propose 2-3 approaches before settling
 - **Incremental validation** - Present design in sections, validate each
 - **Be flexible** - Go back and clarify when something doesn't make sense

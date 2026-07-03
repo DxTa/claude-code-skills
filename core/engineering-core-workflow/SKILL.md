@@ -47,6 +47,7 @@ Once active, strongly prefer the following companion skills as needed:
 - `test-driven-development`
 - `verification-before-completion`
 - `code-review`
+- `ponytail` — prefer command/skill when available; otherwise apply the same ladder manually
 - `sia-code` and `sia-code/health-check`
 
 ## Execution Model
@@ -86,7 +87,16 @@ For feature work and bug fixes, follow TDD unless a concrete exception applies.
 - write the minimum code to pass
 - refactor only after green
 
-### 5. Verification Gate
+### 5. Minimality Pass
+
+After implementation and before verification:
+
+- climb the Ponytail ladder: existing codebase helper, stdlib, native platform, already-installed dependency, one-line form, only then custom code
+- prefer the fewest files and smallest correct diff
+- remove speculative abstractions, wrappers, config knobs, and dependencies that are not pulling real weight
+- if Ponytail command/skill is unavailable, run the same checklist manually; the workflow must not block on command availability
+
+### 6. Verification Gate
 
 Before claiming success:
 
@@ -94,7 +104,7 @@ Before claiming success:
 - inspect output and exit status
 - state the result only with evidence
 
-### 6. Review Discipline
+### 7. Review Discipline
 
 For review requests, lead with findings, not summaries.
 
@@ -113,15 +123,14 @@ Use `Agent({ subagent_type, prompt, inherit_context })` from `@tintinweb/pi-suba
 
 | Step           | Inline or Delegate | When                                                                    |
 | -------------- | ------------------ | ----------------------------------------------------------------------- |
-| Status check   | Inline             | Always trivial                                                          |
-| Continuity     | Inline             | Read plan file                                                          |
-| Planning       | Inline             | Most cases                                                              |
-| Retrieval      | Inline or Delegate | Inline for targeted, `Explore` for broad recon                          |
-| Implementation | Inline             | Main agent + TDD skill                                                  |
-| Verification   | Inline or Delegate | Inline for simple, `Agent({ subagent_type: "verifier" })` for high-risk |
-| Review         | Delegate           | `Agent({ subagent_type: "code-reviewer" })` for fresh eyes              |
-| Parallel recon | Delegate           | `Agent({ subagent_type: "Explore", run_in_background: true })` × N      |
-
+| Status check   | Inline             | Always trivial                                                                                      |
+| Continuity     | Inline             | Read plan file                                                                                      |
+| Planning       | Inline             | Most cases                                                                                          |
+| Retrieval      | Inline or Delegate | Inline for targeted, `explore` for broad recon                                                      |
+| Implementation | Inline             | Main agent + TDD skill + Ponytail minimality pass (command if available, otherwise manual ladder) |
+| Verification   | Inline or Delegate | Inline for simple, `Agent({ subagent_type: "verifier" })` for high-risk                             |
+| Review         | Delegate           | `Agent({ subagent_type: "code-reviewer" })` for fresh eyes, then Ponytail delete-list pass         |
+| Parallel recon | Delegate           | `Agent({ subagent_type: "explore", run_in_background: true })` × N                                  |
 ### Delegation patterns
 
 ```
@@ -129,7 +138,7 @@ Use `Agent({ subagent_type, prompt, inherit_context })` from `@tintinweb/pi-suba
 Agent({ subagent_type: "verifier", prompt: "Verify all claims...", inherit_context: true })
 
 # Background — parallel work
-Agent({ subagent_type: "Explore", prompt: "Map the auth module", run_in_background: true })
+Agent({ subagent_type: "explore", prompt: "Map the auth module", run_in_background: true })
 ```
 
 - parallelize analysis when scopes do not overlap

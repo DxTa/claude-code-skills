@@ -65,8 +65,8 @@ SITUATION?
 │  └─ From external reviewer? → Verify technically before implementing
 │
 ├─ Completed work
-│  ├─ Major feature/task? → Request code-reviewer subagent review
-│  └─ Before merge? → Request code-reviewer subagent review
+│  ├─ Major feature/task? → Request code-reviewer review, then Ponytail delete-list pass
+│  └─ Before merge? → Request code-reviewer review, then Ponytail delete-list pass
 │
 └─ About to claim status
    ├─ Have fresh verification? → State claim WITH evidence
@@ -101,7 +101,8 @@ READ → UNDERSTAND → VERIFY → EVALUATE → RESPOND → IMPLEMENT
 ### Process
 1. Get git SHAs: `BASE_SHA=$(git rev-parse HEAD~1)` and `HEAD_SHA=$(git rev-parse HEAD)`
 2. Dispatch code-reviewer subagent via Task tool with: WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS, BASE_SHA, HEAD_SHA, DESCRIPTION
-3. Act on feedback: Fix Critical immediately, Important before proceeding, note Minor for later
+3. Run Ponytail delete-list pass on the same diff when the change adds abstractions, dependencies, wrappers, or extra files. Use `/ponytail-review` when available; otherwise apply the same checklist inline: reuse existing helper, stdlib/native first, delete speculative flexibility, shrink wrappers.
+4. Act on feedback: Fix Critical immediately, Important before proceeding, note Minor for later
 
 **Full protocol:** `references/requesting-code-review.md`
 
@@ -128,14 +129,14 @@ Using "should"/"probably"/"seems to", expressing satisfaction before verificatio
 
 ## Integration with Workflows
 
-- **Subagent-Driven:** Review after EACH task, verify before moving to next
-- **Pull Requests:** Verify tests pass, request code-reviewer review before merge
+- **Subagent-Driven:** Review after EACH task, then run Ponytail delete-list pass, verify before moving to next
+- **Pull Requests:** Verify tests pass, request code-reviewer review before merge, then run Ponytail delete-list pass if the diff grew abstractions or file count
 - **General:** Apply verification gates before any status claims, push back on invalid feedback
 
 ## Bottom Line
 
 1. Technical rigor over social performance - No performative agreement
-2. Systematic review processes - Use code-reviewer subagent
+2. Systematic review processes - Use code-reviewer for correctness, then Ponytail delete-list pass for complexity
 3. Evidence before claims - Verification gates always
 
 Verify. Question. Then implement. Evidence. Then claim.
