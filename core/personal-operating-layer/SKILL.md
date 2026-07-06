@@ -30,6 +30,8 @@ Use it to:
 | Review               | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: true })` + Ponytail delete-list pass |
 | Other                | Load suggested skills, proceed                                                                                    |
 
+Canonical delegation path: use core `Agent` subagents. Do not introduce alternate delegation systems unless a task explicitly requires a tool-specific workflow.
+
 ## When To Load
 
 Load this skill immediately for every non-trivial root task.
