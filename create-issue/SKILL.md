@@ -4,6 +4,7 @@ description: Investigate a failing GitHub Actions run or job and create a GitHub
 when_to_use: User shares a GitHub Actions URL and wants to file a bug report; 'create an issue for this failure', 'file a bug for this CI run', 'triage this GitHub Actions failure'.
 user_invocable: true
 argument: "<github-actions-run-or-job-url>"
+disable-model-invocation: true
 ---
 
 # Triage CI Failure into a GitHub Issue

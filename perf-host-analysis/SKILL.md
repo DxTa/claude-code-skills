@@ -24,6 +24,7 @@ dependencies:
   - trace-interpretation
 metadata:
   author: NVIDIA Corporation
+disable-model-invocation: true
 ---
 
 # Host Performance Analysis

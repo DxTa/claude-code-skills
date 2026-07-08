@@ -6,6 +6,7 @@ license: Apache-2.0
 # https://github.com/NVIDIA-NeMo/Evaluator/tree/f1fa073/packages/nemo-evaluator-launcher/.claude/skills/nel-assistant
 # Modifications: renamed to evaluation, added workspace management (Step 0),
 # auto-detect ModelOpt quantization format, quantization-aware benchmark defaults.
+disable-model-invocation: true
 ---
 
 ## NeMo Evaluator Launcher Assistant

@@ -6,6 +6,7 @@ service: deepstream
 version: 1.1.0
 reviewed: 2026-04-24
 license: CC-BY-4.0 AND Apache-2.0
+disable-model-invocation: true
 ---
 
 # DeepStream Development Skill

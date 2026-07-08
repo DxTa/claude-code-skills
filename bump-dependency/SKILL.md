@@ -2,6 +2,7 @@
 name: bump-dependency
 description: Bump a pinned dependency (TransformerEngine, Megatron-LM, NRX, etc.), regenerate the lockfile, open a PR, and drive it to green by attaching a watchdog to the "CICD NeMo" workflow and quarantining failing functional tests as flaky until the run is green.
 when_to_use: Bumping a dependency pin in `pyproject.toml` or `uv.lock` and shepherding the PR to green. 'bump TE', 'bump transformer-engine', 'update TE pin', 'bump submodule', 'update lock file', 'bump dependency PR', 'watch CI for a bump', 'quarantine flaky tests after bump', 'run all tests for this bump'.
+disable-model-invocation: true
 ---
 
 # Bump Dependency

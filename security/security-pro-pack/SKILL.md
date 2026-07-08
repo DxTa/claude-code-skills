@@ -1,6 +1,7 @@
 ---
 name: security-pro-pack
 description: Comprehensive security plugin pack including security auditing, penetration testing, compliance checking, cryptography auditing, and threat modeling
+disable-model-invocation: true
 ---
 # Security Pro Pack
 

@@ -6,6 +6,7 @@ metadata:
   version: "3.1.0"
   github-url: "https://github.com/NVIDIA-AI-Blueprints/video-search-and-summarization"
   tags: "nvidia blueprint deployment"
+disable-model-invocation: true
 ---
 
 # VSS Deploy

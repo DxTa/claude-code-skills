@@ -1,6 +1,7 @@
 ---
 name: infrastructure-as-code-generator
 description: Infrastructure as Code generator for Terraform, CloudFormation, and Pulumi
+disable-model-invocation: true
 ---
 # Infrastructure as Code Generator
 

@@ -1,6 +1,7 @@
 ---
 name: fullstack-starter-pack
 description: Fullstack development starter pack for React, Express/FastAPI, database design, and deployment
+disable-model-invocation: true
 ---
 # Fullstack Starter Pack
 

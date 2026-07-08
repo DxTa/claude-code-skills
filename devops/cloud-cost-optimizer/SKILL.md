@@ -1,6 +1,7 @@
 ---
 name: cloud-cost-optimizer
 description: Cloud cost optimization and reporting for AWS, GCP, Azure - identify waste, rightsizing recommendations, reserved instance analysis, and cost allocation
+disable-model-invocation: true
 ---
 # Cloud Cost Optimizer
 

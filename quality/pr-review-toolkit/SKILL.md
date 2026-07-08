@@ -1,6 +1,7 @@
 ---
 name: pr-review-toolkit
 description: Comprehensive PR review toolkit with 6 specialized agents - comment-analyzer, pr-test-analyzer, silent-failure-hunter, type-design-analyzer, code-reviewer, and code-simplifier
+disable-model-invocation: true
 ---
 # PR Review Toolkit
 

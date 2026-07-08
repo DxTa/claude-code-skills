@@ -5,6 +5,7 @@ version: "1.0.0"
 license: MIT
 compatibility: opencode
 # Original Claude allowed-tools: Bash(gh:*),Read,Grep,Glob
+disable-model-invocation: true
 ---
 
 # GitHub Operations

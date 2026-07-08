@@ -1,6 +1,7 @@
 ---
 name: github-act
 description: Test GitHub Actions locally with nektos/act through the GitHub CLI extension `gh act`. Use when running, debugging, listing, or simulating GitHub Actions workflows on a local machine; when a user mentions `gh act`, nektos/act, local Actions testing, `.actrc`, event payloads, workflow_dispatch inputs, local CI reproduction, GitHub Enterprise/GHE remotes such as `*.ghe`, or testing `.github/workflows/*.yml` before pushing. Proactively detect repo remote host and add `--github-instance` when origin uses a `*.ghe` domain.
+disable-model-invocation: true
 ---
 
 # GitHub Act

@@ -10,6 +10,7 @@ tags:
   - inference
 metadata:
   author: NVIDIA Corporation
+disable-model-invocation: true
 ---
 
 # Host Performance Optimization Skill

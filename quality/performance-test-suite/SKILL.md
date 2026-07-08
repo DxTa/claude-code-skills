@@ -1,6 +1,7 @@
 ---
 name: performance-test-suite
 description: Performance testing suite for load testing, stress testing, and bottleneck identification
+disable-model-invocation: true
 ---
 # Performance Test Suite
 

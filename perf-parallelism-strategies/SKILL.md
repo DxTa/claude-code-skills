@@ -2,6 +2,7 @@
 name: perf-parallelism-strategies
 description: Operational guide for choosing and combining parallelism strategies in Megatron Bridge, including sizing rules, hardware topology mapping, and combined parallelism configuration.
 when_to_use: Choosing or sizing TP/DP/PP/CP/EP degrees, or tracing an OOM or regression to a parallelism config change; 'how to parallelize', 'tensor parallel', 'pipeline parallel', 'parallelism config', 'which parallelism for X GPUs'.
+disable-model-invocation: true
 ---
 
 # Parallelism Strategy Selection Skill

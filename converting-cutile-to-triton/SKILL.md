@@ -17,6 +17,7 @@ metadata:
     - conversion
     - gpu
     - kernel
+disable-model-invocation: true
 ---
 
 # cuTile → Triton Conversion

@@ -4,6 +4,7 @@ description: Create beautiful, accessible user interfaces with shadcn/ui compone
 license: MIT
 version: 1.0.0
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # UI Styling Skill

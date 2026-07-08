@@ -4,6 +4,7 @@ description: Google Drive search skill - Search and read Google Drive files incl
 version: "1.0.0"
 license: MIT
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Google Drive

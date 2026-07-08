@@ -1,6 +1,7 @@
 ---
 name: algorithmic-art
 description: Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration
+disable-model-invocation: true
 ---
 # Algorithmic Art
 

@@ -1,6 +1,7 @@
 ---
 name: aws-serverless-eda
 description: AWS serverless and event-driven architecture - Lambda, API Gateway, DynamoDB, Step Functions, EventBridge, SQS, SNS
+disable-model-invocation: true
 ---
 # AWS Serverless EDA
 

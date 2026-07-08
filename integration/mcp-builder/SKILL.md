@@ -1,6 +1,7 @@
 ---
 name: mcp-builder
 description: Guide for creating high-quality MCP (Model Context Protocol) servers in Python (FastMCP) or Node/TypeScript
+disable-model-invocation: true
 ---
 # MCP Builder
 

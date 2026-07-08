@@ -1,6 +1,7 @@
 ---
 name: ansible-playbook-creator
 description: Ansible playbook creator for configuration management and server automation
+disable-model-invocation: true
 ---
 # Ansible Playbook Creator
 

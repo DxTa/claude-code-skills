@@ -2,6 +2,7 @@
 name: perf-hierarchical-context-parallel
 description: Operational guide for enabling hierarchical context parallelism in Megatron-Bridge, including config knobs, code anchors, pitfalls, and verification.
 when_to_use: Scaling context parallelism beyond KV heads, or investigating a commit that changed CP config and caused OOM or a regression; 'hierarchical_context_parallel_sizes', 'a2a+p2p', 'hierarchical CP', 'CP beyond KV heads', 'multi-level CP'.
+disable-model-invocation: true
 ---
 
 # Hierarchical Context Parallel Skill

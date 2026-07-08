@@ -1,6 +1,7 @@
 ---
 name: clean-code
 description: Apply Robert C. Martin Clean Code principles and the clean-code-skills rule catalog when code quality is explicit or when an agent is reviewing, simplifying, refactoring, or cleaning touched code. Use for clean code, code smells, maintainability, readability, naming, small functions, comments/docstrings, DRY, duplication, magic numbers, boundary conditions, Boy Scout cleanup, refactor review, PR review, code quality review, test readability, boundary test coverage, test maintainability, or requests like "make this cleaner", "review for maintainability", "is this clean code", "simplify this", "remove code smells", "rename this", "split this function", "clean up comments", "clean up tests", or "review tests for clarity". For Python or TypeScript, load only the matching language reference file for files in active scope.
+disable-model-invocation: true
 ---
 
 # Clean Code

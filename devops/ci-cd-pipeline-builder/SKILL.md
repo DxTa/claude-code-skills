@@ -1,6 +1,7 @@
 ---
 name: ci-cd-pipeline-builder
 description: CI/CD pipeline builder for GitHub Actions, GitLab CI, and Jenkins
+disable-model-invocation: true
 ---
 # CI/CD Pipeline Builder
 

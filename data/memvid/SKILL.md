@@ -3,6 +3,7 @@ name: memvid
 description: Single-file AI memory with memvid-cli for persistent knowledge storage and retrieval using text-embedding-3-large (3072 dimensions). Use when storing learnings, searching past context, managing session memory, or implementing long-term memory for AI agents. Triggers include "remember", "recall", "search memory", "store this", "what did we learn", or any task requiring persistent memory across sessions.
 license: MIT
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Memvid Memory Skill

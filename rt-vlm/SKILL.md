@@ -13,6 +13,7 @@ metadata:
   version: "3.1.0"
   github-url: "https://github.com/NVIDIA-AI-Blueprints/video-search-and-summarization"
   tags: "nvidia blueprint operational deployment"
+disable-model-invocation: true
 ---
 
 # RTVI VLM Usage API (VSS 3.1)

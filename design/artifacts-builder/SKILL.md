@@ -1,6 +1,7 @@
 ---
 name: artifacts-builder
 description: Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using React, Tailwind CSS, shadcn/ui
+disable-model-invocation: true
 ---
 # Artifacts Builder
 

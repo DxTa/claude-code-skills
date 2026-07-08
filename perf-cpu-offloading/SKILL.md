@@ -2,6 +2,7 @@
 name: perf-cpu-offloading
 description: Validate and use CPU offloading in Megatron Bridge, including layer-level activation offloading and fractional optimizer state offloading with HybridDeviceOptimizer.
 when_to_use: Enabling CPU offload to reduce GPU memory, or investigating a commit that changed CPU offloading config and caused OOM or a crash; 'cpu_offloading', 'optimizer_cpu_offload', 'optimizer_offload_fraction', 'HybridDeviceOptimizer', 'move optimizer to CPU'.
+disable-model-invocation: true
 ---
 
 # CPU Offloading

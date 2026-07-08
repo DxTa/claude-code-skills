@@ -7,6 +7,7 @@ license: Apache-2.0
 # To re-sync: .claude/scripts/sync-upstream-skills.sh
 # Note: this skill depends on the mlflow-mcp MCP server (https://github.com/kkruglik/mlflow-mcp)
 # configured in the user's Claude Code setup.
+disable-model-invocation: true
 ---
 
 # Accessing MLflow

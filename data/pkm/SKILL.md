@@ -4,6 +4,7 @@ description: Personal Knowledge Management via Obsidian MCP - capture learnings 
 version: "1.0.0"
 license: MIT
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Personal Knowledge Management (PKM)

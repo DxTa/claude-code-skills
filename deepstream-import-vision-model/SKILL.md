@@ -9,6 +9,7 @@ license: CC-BY-4.0 AND Apache-2.0
 metadata:
   author: NVIDIA CORPORATION
   version: 1.2.1
+disable-model-invocation: true
 ---
 
 # DeepStream Import Vision Model

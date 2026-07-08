@@ -17,6 +17,7 @@ description: >
 license: Apache-2.0
 metadata:
   author: NVIDIA Corporation
+disable-model-invocation: true
 ---
 
 # Workload Profiling

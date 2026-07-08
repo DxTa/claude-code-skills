@@ -4,6 +4,7 @@ description: Build modern full-stack web applications with Next.js (App Router, 
 license: MIT
 version: 1.0.0
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Web Frameworks Skill Group

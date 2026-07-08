@@ -4,6 +4,7 @@ description: Gmail search skill - Search and read Gmail messages, email content,
 version: "1.0.0"
 license: MIT
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Gmail

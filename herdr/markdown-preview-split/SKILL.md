@@ -1,6 +1,7 @@
 ---
 name: markdown-preview-split
 description: Open a mentioned Markdown file in a Herdr split pane as terminal/TUI preview when running inside Herdr. Use when user asks to preview, render, show, or open a `.md`/Markdown file in Herdr, terminal, split pane, side pane, or TUI instead of browser preview. Especially for requests like "preview this md in herdr", "open markdown in split pane", "show README beside editor", or "render mentioned md file in terminal".
+disable-model-invocation: true
 ---
 
 # Herdr Markdown Preview Split

@@ -1,6 +1,7 @@
 ---
 name: webapp-testing
 description: Toolkit for testing web applications using Playwright - frontend verification, screenshots, browser logs
+disable-model-invocation: true
 ---
 # Webapp Testing
 

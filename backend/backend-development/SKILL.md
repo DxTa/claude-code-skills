@@ -4,6 +4,7 @@ description: Build robust backend systems with modern technologies (Node.js, Pyt
 license: MIT
 version: 1.0.0
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Backend Development Skill

@@ -4,6 +4,7 @@ description: Google Calendar & Meet skill - Search meetings, get event details, 
 version: "1.0.0"
 license: MIT
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Google Calendar & Meet

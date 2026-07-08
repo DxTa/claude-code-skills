@@ -1,6 +1,7 @@
 ---
 name: slack-gif-creator
 description: Toolkit for creating animated GIFs optimized for Slack with size constraints and animation primitives
+disable-model-invocation: true
 ---
 # Slack GIF Creator
 

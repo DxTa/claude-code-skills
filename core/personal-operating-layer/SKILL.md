@@ -1,6 +1,6 @@
 ---
 name: personal-operating-layer
-description: Mandatory routing and preference layer for non-trivial root tasks. Conditionally invokes skill-suggests for domain/tool tasks, applies personal collaboration defaults, and proactively activates persona skills.
+description: Mandatory routing and preference layer for non-trivial root tasks. Conditionally loads skill-discovery for domain/tool skill lookup, applies personal collaboration defaults, and proactively activates persona skills.
 ---
 
 # Personal Operating Layer
@@ -13,7 +13,7 @@ It exists to make the workflow feel personal instead of merely procedural.
 
 Use it to:
 
-- enforce `skill-suggests` before deeper planning or execution
+- use `skill-discovery` to find hidden domain skills when needed
 - apply personal collaboration defaults and communication preferences
 - choose when to bias toward brevity, rigor, synthesis, or exploration
 - aggressively activate persona skills when they can improve the result
@@ -50,20 +50,22 @@ For continuation messages, say `[CONTINUATION FAST-PATH]` and reuse the already-
 
 For each non-trivial root task:
 
-1. Assess whether `skill-suggests` would add value (see **When to invoke skill-suggests** below).
-2. If invoked, review the suggested skills through this personal policy layer.
-3. Load the recommended skills that materially help.
+1. Assess whether domain skill lookup is needed (see **When to use skill-discovery** below).
+2. If needed, **read `$HOME/.pi/agent/skills/skill-index.tsv`** to find the matching skill. Do this BEFORE asking clarifying questions or starting implementation. If the routing gate hint says "domain-specific intent", this step is mandatory — do not skip it.
+3. Load the matching skill's `SKILL.md` if found.
 4. Based on the task intent and the "Route map", choose the right route prompt chain to continue.
 
-### When to invoke skill-suggests
+**If the routing gate detected domain-specific intent and you skipped skill-discovery, you MUST go back and read `skill-index.tsv` before producing any domain-specific output.**
 
-Invoke `skill-suggests` (at most once per root task) when:
+### When to use skill-discovery
 
-- The task enters a **known tool or domain surface** (herdr, deploy/VSS, perf-*, ai-platform, mlflow, byob, deepstream, video-analytics, video-search, rt-vlm, evaluation, deployment) and you have not already identified the right skill.
+Load `skill-discovery` (at most once per root task) when:
+
+- The task enters a **known tool or domain surface** (herdr, deploy/VSS, perf-*, ai-platform, mlflow, byob, deepstream, video-analytics, video-search, rt-vlm, evaluation, deployment, **GRC/compliance** (GDPR, HIPAA, SOC2, ISO, PCI, FedRAMP, NIST, WCAG, etc.), **AWS/cloud** (CDK, serverless, cost), **frontend** (React, Next.js, Tailwind, shadcn), **devops** (Docker, CI/CD, Kubernetes, Terraform), **testing** (pytest, playwright, coverage), **security** (audit, OWASP), **media** (FFmpeg, ImageMagick)) and you have not already identified the right skill.
 - You are **genuinely uncertain** which skill applies — the task mentions an unfamiliar domain or tool.
 - The user explicitly asks for skill discovery ("is there a skill for X?").
 
-**Skip skill-suggests** when:
+**Skip skill-discovery** when:
 
 - The task is **pure methodology** (planning, debugging, refactoring, TDD, code review, brainstorming) — you already embody these; loading their SKILL.md adds cost without value.
 - You already know which skill to load from context (e.g. cwd is inside a known domain repo).
@@ -71,15 +73,7 @@ Invoke `skill-suggests` (at most once per root task) when:
 - The task is a **simple/existing task** where the action is clear and no domain skill is involved.
 - The user has already explicitly named a route, skill, or subagent.
 
-When passing task context to `skill-suggests`, always include the current working directory (cwd) so path-gated skills can be filtered correctly.
-
-If `skill-suggests` is skipped, proceed directly with personal-operating-layer routing. No explanation needed.
-
-Invoke `skill-suggests` at most once per root task. Never retry in the same turn.
-
-If `skill-suggests` fails, times out, or reaches max turns, fail open transparently and continue with parent routing:
-
-`skill-suggests unavailable after one attempt; proceeding with personal-operating-layer direct routing. No skill recommendation produced.`
+If `skill-discovery` is skipped, proceed directly with personal-operating-layer routing. No explanation needed.
 
 ## Personal Routing Policy
 
@@ -93,9 +87,9 @@ If `skill-suggests` fails, times out, or reaches max turns, fail open transparen
 
 ### 2. Skill Weighting
 
-Treat `skill-suggests` output as advisory input, not automatic authority.
+Treat skill-discovery results as advisory input, not automatic authority.
 
-When reviewing suggested skills:
+When reviewing discovered skills:
 
 - **only load skills carrying non-inferable knowledge** — tool commands, repo invariants, domain procedures, API workflows
 - reject generic methodology skills unless you genuinely need the SKILL.md content (rare)
@@ -153,10 +147,10 @@ E.g:
 
 This skill is working when:
 
-- `skill-suggests` fires only when domain/tool uncertainty exists, not on every session
-- suggested skills are predominantly domain/tool skills with non-inferable knowledge
-- follow-through rate is above 30% (suggestions that get loaded)
-- generic methodology skills are NOT being suggested or loaded unnecessarily
+- `skill-discovery` fires only when domain/tool uncertainty exists, not on every session
+- discovered skills are predominantly domain/tool skills with non-inferable knowledge
+- follow-through rate is above 30% (discovered skills that get loaded)
+- generic methodology skills are NOT being discovered or loaded unnecessarily
 - persona activation feels active but not chaotic
 - engineering rigor turns on only when the task actually needs it
 - outputs feel more aligned with personal preferences without sacrificing correctness
