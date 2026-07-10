@@ -4,6 +4,7 @@ description: Test at extremes (1000x bigger/smaller, instant/year-long) to expos
 when_to_use: when uncertain about scalability, edge cases unclear, or validating architecture for production volumes
 version: 1.1.0
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Scale Game

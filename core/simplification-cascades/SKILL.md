@@ -4,6 +4,7 @@ description: Find one insight that eliminates multiple components - "if this is 
 when_to_use: when implementing the same concept multiple ways, accumulating special cases, or complexity is spiraling
 version: 1.1.0
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Simplification Cascades

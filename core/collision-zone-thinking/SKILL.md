@@ -4,6 +4,7 @@ description: Force unrelated concepts together to discover emergent properties -
 when_to_use: when conventional approaches feel inadequate and you need breakthrough innovation by forcing unrelated concepts together
 version: 1.1.0
 compatibility: opencode
+disable-model-invocation: true
 ---
 
 # Collision-Zone Thinking
