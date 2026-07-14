@@ -21,14 +21,16 @@ Use it to:
 
 ## Route map
 
-| Intent               | Route to                                                                                                          |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Engineering Tier 3+  | `engineering-core-workflow` skill (adaptive) + Ponytail minimality pass if available, otherwise ladder inline   |
-| Engineering Tier 1-2 | `engineering-core-workflow` skill (lightweight) + Ponytail minimality pass if available, otherwise ladder inline |
-| Exploration          | `Agent({ subagent_type: "explore", prompt: "...", inherit_context: true })`                                   |
-| Verification         | `Agent({ subagent_type: "verifier", prompt: "...", inherit_context: true })`                                  |
-| Review               | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: true })` + Ponytail delete-list pass |
-| Other                | Load suggested skills, proceed                                                                                    |
+| Intent                     | Route to                                                                                                          |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Engineering Tier 3+        | `engineering-core-workflow` skill (adaptive) + Ponytail minimality pass if available, otherwise ladder inline   |
+| Engineering Tier 1-2       | `engineering-core-workflow` skill (lightweight) + Ponytail minimality pass if available, otherwise ladder inline |
+| Planning / spec refinement | `brainstorming` or `spec-analyzer` + `planning-with-files`                                                        |
+| Implementation planning    | `writing-plans` + `planning-with-files`                                                                           |
+| Exploration                | `Agent({ subagent_type: "explore", prompt: "...", inherit_context: true })`                                   |
+| Verification               | `Agent({ subagent_type: "verifier", prompt: "...", inherit_context: true })`                                  |
+| Review                     | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: true })` + Ponytail delete-list pass |
+| Other                      | Load suggested skills, proceed                                                                                    |
 
 Canonical delegation path: use core `Agent` subagents. Do not introduce alternate delegation systems unless a task explicitly requires a tool-specific workflow.
 
@@ -67,7 +69,7 @@ Load `skill-discovery` (at most once per root task) when:
 
 **Skip skill-discovery** when:
 
-- The task is **pure methodology** (planning, debugging, refactoring, TDD, code review, brainstorming) — you already embody these; loading their SKILL.md adds cost without value.
+- The task is **pure methodology** (planning, debugging, refactoring, TDD, code review, brainstorming) — you already embody these; loading their SKILL.md adds cost without value, unless the user explicitly asks for repo-specific planning/spec workflow or you already know a local methodology skill carries needed workflow constraints.
 - You already know which skill to load from context (e.g. cwd is inside a known domain repo).
 - The task is a **continuation** of an active plan (`[CONTINUATION FAST-PATH]`).
 - The task is a **simple/existing task** where the action is clear and no domain skill is involved.

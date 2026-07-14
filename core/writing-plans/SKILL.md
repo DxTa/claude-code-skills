@@ -15,7 +15,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+**Plan destination:** If an active plan file already exists, write the implementation plan there first. Export to `docs/plans/YYYY-MM-DD-<feature-name>.md` only when the user wants a shareable handoff artifact or no active plan file exists.
 
 ## Bite-Sized Task Granularity
 
@@ -100,7 +100,7 @@ git commit -m "feat: add specific feature"
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**"Plan complete and saved to the active plan file (or fallback plan artifact when no active plan file exists, plus exported document if requested). Two execution options:**
 
 **1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
 

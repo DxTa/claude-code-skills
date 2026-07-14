@@ -223,7 +223,7 @@ I recommend Option 1 because [reasoning based on requirements and constraints].
 
 ## Output Format
 
-### Store Enhanced Spec in notes.md
+### Store Enhanced Spec in the active plan file (or `notes.md` fallback)
 
 ```markdown
 ## Enhanced Spec: [Feature Name]
@@ -269,7 +269,7 @@ I recommend Option 1 because [reasoning based on requirements and constraints].
 
 **Next Steps:**
 1. Review this spec
-2. If approved: Create task_plan.md with phases
+2. If approved: Create implementation phases in the active plan file (`task_plan.md` fallback only when no active plan file exists)
 3. Proceed with implementation (T1-T4 tiers)
 ```
 
@@ -282,7 +282,7 @@ I recommend Option 1 because [reasoning based on requirements and constraints].
 | Vague requirement ("add login") | ✅ YES |
 | Jira ticket with unclear acceptance criteria | ✅ YES |
 | T3+ task before planning | ✅ RECOMMENDED |
-| Well-defined task with clear spec | ❌ Skip, go to task_plan.md |
+| Well-defined task with clear spec | ❌ Skip, go straight to implementation planning in the active plan file |
 | Follow-up on existing work | ❌ Skip |
 
 ### Workflow Integration
@@ -294,9 +294,9 @@ sia-code memory search (get past context)
      ↓
 spec-analyzer (memory-informed analysis)
      ↓
-Enhanced spec → notes.md
+Enhanced spec → active plan file when one exists (`notes.md` fallback only when needed)
      ↓
-Continue with MASTER CHECKLIST → task_plan.md
+Continue with planning workflow in that same active plan file (`task_plan.md` fallback only when no active plan file exists)
 ```
 
 ## Key Principles
@@ -366,11 +366,11 @@ Continue with MASTER CHECKLIST → task_plan.md
 
 ## After Spec Analysis
 
-1. **Store enhanced spec** in notes.md
+1. **Store enhanced spec** in the active plan file when one exists; use `notes.md` only when no active plan file already covers the research or the user explicitly wants a separate artifact
 2. **Ask:** "Does this spec capture everything? Any changes needed?"
 3. **When approved:**
-   - "Ready to create task_plan.md with implementation phases?"
-   - Continue with your normal AGENTS.md workflow (get-session-info, task_plan.md, TodoWrite)
+   - "Ready to turn this into implementation phases in the active plan file?"
+   - Continue with your normal workflow using the active plan file first (`task_plan.md` only as fallback when no active plan file exists)
 
 ## Common Pitfalls to Avoid
 
@@ -401,7 +401,7 @@ Good: [Ask clarifying questions first, explore approaches, then present spec]
 ## Notes
 
 - **Not a planning tool:** This skill refines REQUIREMENTS, not implementation plans
-- **Use before task_plan.md:** Enhanced spec feeds into your normal planning workflow
+- **Use before implementation planning:** Enhanced spec feeds into your normal planning workflow, preferably in the existing active plan file when one exists
 - **Works standalone or with Jira:** Flexible input sources
 - **Memory-aware:** Leverages past decisions for consistency
 - **Integrates seamlessly:** Fits into your existing AGENTS.md MASTER CHECKLIST

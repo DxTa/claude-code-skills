@@ -35,9 +35,10 @@ Start by understanding the current project context, then ask questions one at a 
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
+- Write the validated design summary and decisions into the active plan file when one exists
+- Export to `docs/plans/YYYY-MM-DD-<topic>-design.md` only when the user wants a shareable design artifact or no active plan file exists
 - Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+- Commit the design document to git when you create that export artifact
 
 **Implementation (if continuing):**
 - Ask: "Ready to set up for implementation?"
