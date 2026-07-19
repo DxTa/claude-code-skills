@@ -15,34 +15,38 @@ Write the test first. Watch it fail. Write minimal code to pass.
 
 ## When to Use
 
-**Always:**
+**Mandatory (T2+ behavior changes):**
 - New features
 - Bug fixes
-- Refactoring
 - Behavior changes
+
+**Tier-aware:**
+- T1 trivial / single-safe-edit / clear-solution: TDD optional — use judgment. A one-line fix with obvious verification doesn't need a red-green cycle.
+- T2+ behavior changes: TDD mandatory.
 
 **Exceptions (ask your human partner):**
 - Throwaway prototypes
 - Generated code
 - Configuration files
+- Refactoring with existing passing tests already pinning behavior
 
-Thinking "skip TDD just this once"? Stop. That's rationalization.
+Thinking "skip TDD just this once"? If it's a T2+ behavior change, that's rationalization — write the test. If it's genuinely T1 trivial, proceed and note why.
 
-## The Iron Law
+## The Iron Law (T2+ behavior changes)
 
 ```
 NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
 ```
 
-Write code before the test? Delete it. Start over.
-
-**No exceptions:**
+For T2+ behavior changes: write code before the test? Delete it and start over.
 - Don't keep it as "reference"
 - Don't "adapt" it while writing tests
 - Don't look at it
-- Delete means delete
+- Delete means delete — for behavior-changing code
 
-Implement fresh from tests. Period.
+Implement fresh from tests.
+
+For T1 trivial work (one-line fix, obvious verification): proceed directly, note why TDD was skipped.
 
 ## Red-Green-Refactor
 
@@ -285,7 +289,7 @@ Tests-first force edge case discovery before implementing. Tests-after verify yo
 - "TDD is dogmatic, I'm being pragmatic"
 - "This is different because..."
 
-**All of these mean: Delete code. Start over with TDD.**
+**All of these mean: for T2+ behavior changes, delete the code and start over with TDD. For T1 trivial work, proceed but note why.**
 
 ## Example: Bug Fix
 
@@ -337,7 +341,7 @@ Before marking work complete:
 - [ ] Tests use real code (mocks only if unavoidable)
 - [ ] Edge cases and errors covered
 
-Can't check all boxes? You skipped TDD. Start over.
+Can't check all boxes? If it was a T2+ behavior change, you skipped TDD — start over. If T1 trivial, note the gap and proceed.
 
 ## When Stuck
 
@@ -364,8 +368,9 @@ When adding mocks or test utilities, read @testing-anti-patterns.md to avoid com
 ## Final Rule
 
 ```
-Production code → test exists and failed first
+T2+ behavior change → test exists and failed first
+T1 trivial → proceed with obvious verification, note why TDD was skipped
 Otherwise → not TDD
 ```
 
-No exceptions without your human partner's permission.
+Tier gates set by `engineering-core-workflow`. No skipping T2+ TDD without your human partner's permission.
