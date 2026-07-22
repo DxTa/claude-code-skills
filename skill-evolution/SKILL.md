@@ -30,7 +30,7 @@ You MUST evaluate whether to enter the skill evolution workflow when ANY of thes
 2. **Notice if a trigger fired** (see Trigger conditions above). If nothing surfaced a generalizable learning, you are done.
 3. **Try to score the learning — when ground truth exists.** A test exists, a known-correct answer is available, the solver returns a check-able status, etc. If the score fails, refine the candidate learning — tune the pattern, fix the example, add the missing detail — and re-score. Iterate until it scores or you conclude no version of it will; in the latter case, drop the proposal rather than ship an unscored claim. (See Scoring criteria below for what counts as ground truth.)
 4. **If no ground truth is available to score against** — no test to run, no comparable answer to check against, no solver to invoke — skip step 3 and proceed with `scored: no`. This is normal during inference-style interactions where the learning is qualitative — the proposal is still useful, just lower-confidence.
-5. **Distill, place, and propose** (see sections below). Apply only after the user approves.
+5. **Distill, place, and propose** (see sections below). On approval, apply directly on the current branch and commit as a single commit, then present the commit for review (see Commit & Review). No separate branch, no staging `references/` files.
 6. **Treat recurrence as evidence.** When the same unscored insight surfaces in 2+ independent interactions, the recurrence is itself a signal. Promote the insight to a stronger proposal — note the prior occurrences in the trigger field rather than re-deriving from scratch.
 
 The loop has no hard iteration cap. The right number of refinement passes is whatever lets you confidently say "this scored" or "this won't score, dropping it." Forcing a count adds ceremony without changing the outcome.
@@ -108,11 +108,12 @@ The goal is to keep SKILL.md focused on what the model needs *every* invocation,
 
 ### Proposal format
 
-Present to the user with these four fields. The diff itself carries most of the meaning; the other fields exist to give context the diff cannot.
+Present to the user with these fields. The diff itself carries most of the meaning; the other fields exist to give context the diff cannot.
 
 ```text
 Skill update proposal:
   Target:  skills/<name>/SKILL.md  (or skills/<name>/assets/<file>.py)
+  Id:      sev-<6hex>  (generate once per proposal, e.g. `openssl rand -hex 3`)
   Trigger: <what surfaced this — including prior occurrences if recurring>
   Scored:  yes — <how it was validated, e.g. "solver returned Optimal", "test passed">
            no  — review carefully; not validated against ground truth
@@ -120,7 +121,40 @@ Skill update proposal:
   Diff:    <the exact content to add, remove, or modify>
 ```
 
-Only apply after the user approves. If the user declines, do not persist. If `Removal: yes`, silence is not approval — proceed only on an explicit "yes" from the user.
+On approval, apply the change on the current branch and commit it as its own commit (see Commit & Review), then present the commit for the user's review. If the user declines the proposal, do not apply or commit. If `Removal: yes`, silence is not approval — proceed only on an explicit "yes" from the user.
+
+## Commit & Review
+
+Skill-evolution changes are applied and committed **directly on the current branch**, not on a separate branch and not staged into `references/` files. Each change is its own commit so a rejected change can be undone surgically.
+
+### Apply + commit
+
+1. Generate the proposal id: `sev-<6hex>` (e.g. `openssl rand -hex 3` → `sev-a1b2c3`). Put it in the `Id:` field of the proposal and in the commit.
+2. Apply the distilled change directly to the target skill file(s) on the current branch. No separate branch, no staging references files.
+3. Commit one change per commit. Subject line:
+   ```
+   skill-evolution: <target-skill> [sev-<id>] <short summary>
+   ```
+   Body: a one-line trigger summary and `Id: sev-<id>`. The `sev-<id>` token makes the commit greppable later.
+4. Present the commit to the user for review: commit hash, `sev-<id>`, and `git show --stat <hash>`.
+
+### Approve
+
+Keep the commit as-is. Push is the user's call (manual). Done.
+
+### Reject (undo the commit)
+
+Locate the exact commit by id before touching anything:
+
+```
+git log --grep='sev-<id>' --format='%H %s'
+```
+
+- Exactly one match, and it is `HEAD` → `git reset --hard HEAD~1`. The commit and its changes are erased.
+- Exactly one match, but not `HEAD` (other commits interleaved) → `git revert <hash> --no-edit`. Safe, no history rewrite; the revert commit undoes the change. Reference `sev-<id>` in the revert message so it stays greppable.
+- No match, or more than one match → report to the user, do nothing. Ask which commit to undo.
+
+Never batch multiple skill-evolution changes into one commit. One change per commit keeps reject surgical and the `sev-` id unambiguous.
 
 ## Provenance tagging
 
