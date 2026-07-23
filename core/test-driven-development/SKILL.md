@@ -374,3 +374,7 @@ Otherwise → not TDD
 ```
 
 Tier gates set by `engineering-core-workflow`. No skipping T2+ TDD without your human partner's permission.
+
+## Local Skill Evolution
+
+- Review `references/skill-evolution-learnings.md` for local pending skill-evolution learnings before applying this skill.
