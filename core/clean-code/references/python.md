@@ -7,6 +7,8 @@ Load this when working on Python code with `clean-code`.
 - **P1 Explicit imports**: avoid `from module import *`; import named symbols or modules explicitly.
 - **P2 Domain constants as Enums/literals**: use `Enum`, `Literal`, or named constants for meaningful variants instead of scattered strings/numbers.
 - **P3 Type public interfaces**: add type hints to public functions, methods, and return values; keep internal typing proportional.
+- **P4 Reject pytest `monkeypatch`**: do not use the `monkeypatch` fixture. Prefer explicit dependency injection, local fakes, `tmp_path`, or a focused fixture that supplies config/env/dependency values.
+- **P5 Minimal pytest fixtures**: keep fixtures small, explicit, and scoped to the nearest useful place. Use local setup for one test, module-local fixtures for one file, and the closest folder `conftest.py` only when multiple test modules share setup.
 
 ## Idiomatic adaptations
 
@@ -28,6 +30,8 @@ Load this when working on Python code with `clean-code`.
 | Mutable default args | G3/G26 | Use `None`, construct inside |
 | Broad `except Exception: pass` | G4/G16 | Catch specific exception, log/raise |
 | `dict` with unknown shape crossing boundary | P3/G26 | TypedDict/dataclass/Pydantic |
+| Pytest `monkeypatch` fixture | P4/G22 | Inject dependency/config/env via arguments, fakes, `tmp_path`, or focused fixture |
+| Global `conftest.py` fixture graph | P5/G16/G30 | Move fixture to nearest folder/module, or inline setup if single-use |
 | `# TODO remove later` old code | C2/C5/G9 | Delete or create tracked issue |
 | Boolean flag parameter | F3/G15 | Split functions or explicit strategy |
 
@@ -35,7 +39,9 @@ Load this when working on Python code with `clean-code`.
 
 - Use pytest names that describe behavior: `test_rejects_empty_email`.
 - Add parametrized boundary cases for validators and parsers.
-- Use fixtures for setup, but avoid fixture graphs that hide test intent.
+- Reject `monkeypatch`; it hides dependencies and mutates global state. Refactor toward injectable collaborators/config/env, local fakes, `tmp_path`, or focused fixtures.
+- Prefer minimal fixtures. Keep fixture definitions closest to use: inline setup for one test, module-local fixture for one file, nearest folder `conftest.py` only for setup shared across multiple test modules.
+- Avoid broad `conftest.py` fixture graphs, autouse fixtures, and fixtures that hide assertions or behavior.
 - Prefer fakes/in-memory objects over real services for unit tests.
 - Use `pytest.raises(..., match=...)` for meaningful error contracts.
 
