@@ -1,12 +1,16 @@
 ---
 name: acli
-description: Interact with Atlassian Cloud (Jira and Confluence) via the acli CLI. Use for Jira work items (search with JQL, view, create, edit, transition, assign, comment, link, clone, delete, archive), projects, sprints, boards, filters, and Confluence pages, spaces, and blog posts. Requires acli to be installed and authenticated.
+description: Interact with Atlassian Cloud (Jira and Confluence) via the acli CLI. Use for Jira work items (search with JQL, view, create, edit, transition, assign, comment, link, clone, delete, archive), projects, sprints, boards, filters, and Confluence pages, spaces, and blog posts. Use Atlassian Rovo MCP `updateConfluencePage` for Confluence page updates because acli does not support them yet. Requires acli to be installed and authenticated.
 ---
 
 # Atlassian CLI (acli)
 
 Interact with Atlassian Cloud — Jira work items, projects, sprints, boards, filters, and
 Confluence content — using the `acli` CLI.
+
+**Routing:** Use `acli` for all Atlassian operations except updating an existing Confluence
+page. For page updates, use the Atlassian Rovo MCP direct tool
+`atlassian_rovo_updateConfluencePage`; `acli` does not support page updates yet.
 
 ## Prerequisites
 
