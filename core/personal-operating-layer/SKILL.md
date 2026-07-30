@@ -27,9 +27,9 @@ Use it to:
 | Engineering Tier 1-2       | `engineering-core-workflow` skill (lightweight) + Ponytail minimality pass if available, otherwise ladder inline |
 | Planning / spec refinement | `brainstorming` or `spec-analyzer` + `planning-with-files`                                                        |
 | Implementation planning    | `writing-plans` + `planning-with-files`                                                                           |
-| Exploration                | `Agent({ subagent_type: "explore", prompt: "...", inherit_context: true })`                                   |
+| Exploration                | `Agent({ subagent_type: "explore", prompt: "...", inherit_context: false })`                                   |
 | Verification               | `Agent({ subagent_type: "verifier", prompt: "...", inherit_context: true })`                                  |
-| Review                     | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: true })` + Ponytail delete-list pass |
+| Review                     | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: false })` + Ponytail delete-list pass |
 | Other                      | Load suggested skills, proceed                                                                                    |
 
 Canonical delegation path: use core `Agent` subagents. Do not introduce alternate delegation systems unless a task explicitly requires a tool-specific workflow.
@@ -134,6 +134,17 @@ Do not activate `engineering-core-workflow` for tasks that are primarily:
 - pure research or comparison
 - docs-only work without engineering execution implications
 - communication, scheduling, media, or personal knowledge tasks
+
+## Token discipline (routing policy)
+
+Measured over 4 days: 30-50% of session token cost is cacheRead amplification from long agent chains and repeated large MCP results. These routing-level guardrails apply at dispatch time.
+
+- **verifier-once-per-claim-set**: track claims already verified PASS in-session; do not re-run `verifier` on the same claim set unless `git diff` (or relevant file mtimes) changed since the last PASS. One `verifier` per change-set, not per phase.
+- **Chain depth cap**: max 6 agent dispatches per session. If a 7th is needed, run `dcp_compress`/`/compact` or hand off to a fresh session before dispatching.
+- **fusion over specialist chain**: for design/tradeoff questions needing 3+ specialist perspectives (architect + frontend + backend + devops, etc.), prefer one `fusion` call over 3+ `Agent` dispatches. Reserve `Agent` specialists for write work or single-domain deep dives.
+- **MCP introspection dedupe**: do not `mcp(describe|connect|search)` the same server twice in one session — reuse the first result. MCP tool lists do not change mid-session.
+- **Explicit scope for inherit_context:false agents**: `explore`, `code-reviewer`, `pr-test-analyzer`, `performance-reviewer` run without parent context — always pass the diff scope / PR number / file list / question in the dispatch prompt. Never assume they can read prior conversation. (`verifier` keeps `inherit_context: true` because it must read what was claimed.)
+- **Background-agent retrieval**: when a background agent completes, read its result via `get_subagent_result` once, distill the facts, then `dcp_prune` the raw output — do not let the full transcript linger in context.
 
 ## Output Bias
 
