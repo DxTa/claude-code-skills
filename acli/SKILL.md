@@ -8,6 +8,15 @@ description: Interact with Atlassian Cloud (Jira and Confluence) via the acli CL
 Interact with Atlassian Cloud — Jira work items, projects, sprints, boards, filters, and
 Confluence content — using the `acli` CLI.
 
+## Pi MCP Search
+
+In Pi, use direct Atlassian MCP tools for read-only search:
+
+- `atlassian_rovo_searchConfluenceUsingCql` — search Confluence pages with CQL
+- `atlassian_rovo_searchJiraIssuesUsingJql` — search Jira work items with JQL
+
+Use `acli` for other Atlassian operations.
+
 ## Prerequisites
 
 - `acli` must be installed (`acli --version` to check) and authenticated
