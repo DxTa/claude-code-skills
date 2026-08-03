@@ -1,7 +1,6 @@
 ---
 name: internal-comms
 description: Write internal communications - status reports, leadership updates, 3P updates, newsletters, FAQs, incident reports
-disable-model-invocation: true
 ---
 # Internal Comms
 

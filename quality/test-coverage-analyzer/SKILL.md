@@ -1,7 +1,6 @@
 ---
 name: test-coverage-analyzer
 description: Test coverage analyzer for identifying untested code and analyzing coverage metrics
-disable-model-invocation: true
 ---
 # Test Coverage Analyzer
 

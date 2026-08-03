@@ -1,7 +1,6 @@
 ---
 name: skill-discovery
 description: Find and load locally installed skills that are hidden from the default prompt. Use when you need a skill not visible in available_skills — read skill-index.tsv to find it by keyword/domain, then read the SKILL.md path.
-disable-model-invocation: true
 ---
 
 # Skill Discovery

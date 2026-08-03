@@ -1,7 +1,6 @@
 ---
 name: theme-factory
 description: Toolkit for styling artifacts with themes - 10 pre-set themes with colors/fonts
-disable-model-invocation: true
 ---
 # Theme Factory
 
