@@ -185,6 +185,10 @@ Do not:
 
 Favor small, reversible, tested improvements.
 
+## Pattern handoff
+
+Keep smell diagnosis and behavior-preserving cleanup here. When cleanup reveals recurring Python variation, lifecycle, tree, coordination, or algorithm pressure, hand off structural selection to [python-design-patterns](../python-design-patterns/SKILL.md). When a pattern proposal is hiding a naming, duplication, size, or control-flow smell, hand it back here before adding abstraction.
+
 ## Source basis
 
 This skill adapts the public MIT-licensed `ertugrul-dmr/clean-code-skills` rule taxonomy and cross-checks it against widely known principles from Robert C. Martin's *Clean Code*. See `references/sources.md` for URL, commit, license, access date, and book citation. It summarizes concepts and operational guidance; it does not reproduce book text.

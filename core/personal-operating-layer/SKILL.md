@@ -30,6 +30,8 @@ Use it to:
 | Exploration                | `Agent({ subagent_type: "explore", prompt: "...", inherit_context: false })`                                   |
 | Verification               | `Agent({ subagent_type: "verifier", prompt: "...", inherit_context: true })`                                  |
 | Review                     | `Agent({ subagent_type: "code-reviewer", prompt: "...", inherit_context: false })` + Ponytail delete-list pass |
+| Python code-pattern choice/review | `python-design-patterns`; pair with an architecture role when scope is architectural |
+| System architecture        | `code-architect`, `software-architect`, or `architecture-critic`; add `python-design-patterns` only for Python code-level choices |
 | Other                      | Load suggested skills, proceed                                                                                    |
 
 Canonical delegation path: use core `Agent` subagents. Do not introduce alternate delegation systems unless a task explicitly requires a tool-specific workflow.
@@ -78,6 +80,14 @@ Load `skill-discovery` (at most once per root task) when:
 If `skill-discovery` is skipped, proceed directly with personal-operating-layer routing. No explanation needed.
 
 ## Personal Routing Policy
+
+### Architecture and pattern precedence
+
+- Explicit Python design-pattern selection, comparison, or refactoring routes to `python-design-patterns`.
+- Smell, naming, readability, duplication, or behavior-preserving cleanup routes to `clean-code`.
+- React, backend topology, DeepStream, cloud, and other framework/system patterns stay domain-owned; add `python-design-patterns` only for embedded Python GoF decisions.
+- Choose `code-architect`, `software-architect`, or `architecture-critic` for architectural scope before choosing a code-level pattern.
+- Treat an unqualified “pattern” as ambiguous; inspect context and use `skill-discovery` rather than guessing.
 
 ### 1. Default Collaboration Style
 
