@@ -373,7 +373,7 @@ T1 trivial → proceed with obvious verification, note why TDD was skipped
 Otherwise → not TDD
 ```
 
-Tier gates set by `engineering-core-workflow`. No skipping T2+ TDD without your human partner's permission.
+Tiers are defined by repository routing policy. T2+ behavior changes require TDD; no skipping without your human partner's permission.
 
 ## Local Skill Evolution
 
