@@ -1,6 +1,6 @@
 ---
 name: skill-discovery
-description: Find and load locally installed skills that are hidden from the default prompt. Use when you need a skill not visible in available_skills — read skill-index.tsv to find it by keyword/domain, then read the SKILL.md path.
+description: Find and load locally installed skills that match a task but are absent from available_skills. Use skill-index.tsv to search by keyword/domain, then read the exact SKILL.md path before applying it.
 ---
 
 # Skill Discovery
@@ -10,6 +10,7 @@ description: Find and load locally installed skills that are hidden from the def
 - You need specialized knowledge for a task but no visible skill matches.
 - User asks about a domain (AWS, frontend, testing, perf, GRC, AI platform, etc.) and you suspect a skill exists.
 - You see a skill name referenced in AGENTS.md routing or session context but it is not in your available_skills list.
+- You need an organizational workflow such as finance, legal-risk, people, operations, revenue, marketing, customer experience, or corporate strategy.
 
 ## How to Find Hidden Skills
 
@@ -42,30 +43,34 @@ Scan the `description` column for keywords related to the task. Examples:
 | GDPR, HIPAA, SOC2, compliance | `gdpr-compliance`, `hipaa-compliance`, `soc2`, `iso27001` |
 | Docker, CI/CD, GitHub Actions | `ci-cd-pipeline-builder`, `github-act`, `cicd` |
 | Testing, coverage, webapp | `test-coverage-analyzer`, `webapp-testing`, `performance-test-suite` |
-| PR review, security audit | `pr-review-toolkit`, `security-auditor`, `code-review-plugin` |
+| PR review, security audit | `pr-review-toolkit`, `security-test-scanner`, `code-review-plugin` |
 | Video, analytics, streams | `video-analytics`, `video-search`, `rt-vlm` |
-| Deployment, vLLM, serving | `deployment`, `deploy`, `evaluation` |
-| AI Platform, CVAT, MLDB | `ai-platform-coding-practices`, `ai-platform-review-contract` |
-| Documentation, markdown | `docs`, `mcp-builder` |
+| Deployment, vLLM, serving | `deployment`, `deploy` |
+| AI Platform, CVAT, MLDB | `ai-platform-coding-practices`, `ai-platform-review-contract`, `ai-platform-annotation-cvat`, `ai-platform-dataset-dvc` |
+| Documentation, markdown | `docs` for NeMo-RL; otherwise search repository guidance |
 | Communication, Gmail, Calendar | `gmail`, `gcal`, `gdrive`, `internal-comms` |
+| Organizational workflows | Search `mine/organizations/` for department and skill name |
 
 ### Step 3: Read the matching SKILL.md
 
-Once you find a matching skill name and path from the index, construct the full path:
+Once you find a matching skill name and path from the index, construct the full path. Prefer exact description matches over name-only matches:
 
 ```bash
 read $HOME/.pi/agent/skills/<path-from-index>
 ```
 
-The `path` column is relative to `$HOME/.pi/agent/skills/`. For example, if the index shows path `mine/perf-optimization/SKILL.md`, the full read path is `$HOME/.pi/agent/skills/mine/perf-optimization/SKILL.md`.
+The `path` column is relative to `$HOME/.pi/agent/skills/`. For example, if the index shows path `mine/perf-optimization/SKILL.md`, the full read path is `$HOME/.pi/agent/skills/mine/perf-optimization/SKILL.md`. Organizational imports use paths such as `$HOME/.pi/agent/skills/mine/organizations/finance/skills/financial-modeling/SKILL.md`.
 
 ### Step 4: Apply the skill
 
-Follow the loaded skill's instructions. If multiple skills match, load the most specific one first.
+Read the complete selected `SKILL.md`, including `Never`, routing boundaries, and referenced files. Use one primary skill; add at most two secondary skills only when each covers a separate concern. Stop when task is covered. Do not treat a skill name, agent name, or keyword hit as proof that the skill applies.
+
+For sensitive, consequential, or role-title skills, require explicit user or agent selection and preserve the skill's decision-support boundaries. Do not add them to broad automatic routing rules.
 
 ## Notes
 
-- Hidden skills have `disable-model-invocation: true` — they are excluded from the system prompt to save tokens, not removed.
+- `disable-model-invocation: true` excludes a skill from normal system discovery; it remains loadable through an explicit agent `skills:` selection or explicit skill request. Workflow agents expose explicitly selected hidden skills without making them globally automatic.
+- Agent frontmatter `skills:` values must resolve by skill name or exact indexed path. Index aliases are for discovery; use the `path` column when reading files.
 - The index is auto-generated. If a skill is missing from the index, search by directory: `find $HOME/.pi/agent/skills -name SKILL.md -path '*keyword*'`.
 - GRC/compliance skills live under `third-party/grc-skills/extracted/`.
 - Perf skills live under `mine/perf-*`.
