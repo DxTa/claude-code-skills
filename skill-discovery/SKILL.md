@@ -31,6 +31,14 @@ If the file is not found, fall back:
 find $HOME/.pi/agent/skills -maxdepth 1 -name 'skill-index.tsv'
 ```
 
+After reading index, use semantic search for advisory candidates:
+
+```bash
+node "$HOME/.dotfiles/pi/scripts/agent-semantic-search.mjs" search --catalog skills --query "<one-sentence task>" --top-k 5
+```
+
+Search returns ordered `results` array with up to five candidates, not one selected skill. Use candidates to choose one primary and, when separate concerns need them, up to two secondary skills. If command fails because model, cache, or index is unavailable, continue with keyword/directory matching; never use stale output.
+
 ### Step 2: Match by keyword
 
 Scan the `description` column for keywords related to the task. Examples:
@@ -51,9 +59,9 @@ Scan the `description` column for keywords related to the task. Examples:
 | Communication, Gmail, Calendar | `gmail`, `gcal`, `gdrive`, `internal-comms` |
 | Organizational workflows | Search `mine/organizations/` for department and skill name |
 
-### Step 3: Read the matching SKILL.md
+### Step 3: Read matching SKILL.md files
 
-Once you find a matching skill name and path from the index, construct the full path. Prefer exact description matches over name-only matches:
+For every primary or secondary skill you choose, construct its full path from the indexed name and path. Prefer exact description matches over name-only matches:
 
 ```bash
 read $HOME/.pi/agent/skills/<path-from-index>
@@ -61,9 +69,9 @@ read $HOME/.pi/agent/skills/<path-from-index>
 
 The `path` column is relative to `$HOME/.pi/agent/skills/`. For example, if the index shows path `mine/perf-optimization/SKILL.md`, the full read path is `$HOME/.pi/agent/skills/mine/perf-optimization/SKILL.md`. Organizational imports use paths such as `$HOME/.pi/agent/skills/mine/organizations/finance/skills/financial-modeling/SKILL.md`.
 
-### Step 4: Apply the skill
+### Step 4: Apply selected skills
 
-Read the complete selected `SKILL.md`, including `Never`, routing boundaries, and referenced files. Use one primary skill; add at most two secondary skills only when each covers a separate concern. Stop when task is covered. Do not treat a skill name, agent name, or keyword hit as proof that the skill applies.
+Read each selected `SKILL.md` completely, including `Never`, routing boundaries, and referenced files. Use one primary skill; add at most two secondary skills only when each covers a separate concern. Stop when task is covered. Do not treat a skill name, agent name, or keyword hit as proof that the skill applies.
 
 For sensitive, consequential, or role-title skills, require explicit user or agent selection and preserve the skill's decision-support boundaries. Do not add them to broad automatic routing rules.
 

@@ -13,6 +13,16 @@ Columns:
 name  source  path  description
 ```
 
+## Semantic ranking
+
+After reading index, use semantic search to produce advisory candidates:
+
+```bash
+node "$HOME/.dotfiles/pi/scripts/agent-semantic-search.mjs" search --catalog agents --query "<one-sentence task>" --top-k 5
+```
+
+Treat returned names as candidates only. Read matching agent files and apply explicit task fit, safety, and routing rules. If command fails because model, cache, or index is unavailable, continue with manual index selection; never use stale output.
+
 ## Dispatch
 
 1. **Explore fast lane:** first agent for a new broad/uncertain, read-only retrieval may be direct foreground `Agent({ subagent_type: "explore", inherit_context: false, thinking: "low", max_turns: 6, run_in_background: false })`. Wait for its inline result before any parent tool call, routing read, or next delegation. Prompt only cwd, precise question, scope, and expected evidence. Skip index, agent-file, and contract reads for this one call.
