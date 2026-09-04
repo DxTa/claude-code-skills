@@ -25,12 +25,12 @@ Treat returned names as candidates only. Read matching agent files and apply exp
 
 ## Dispatch
 
-1. **Explore fast lane:** first agent for a new broad/uncertain, read-only retrieval may be direct foreground `Agent({ subagent_type: "explore", inherit_context: false, thinking: "low", max_turns: 6, run_in_background: false })`. Wait for its inline result before any parent tool call, routing read, or next delegation. Prompt only cwd, precise question, scope, and expected evidence. Skip index, agent-file, and contract reads for this one call.
-2. Fast lane never covers edits, implementation, review, security/audit, testing, deployment, specialist selection, or a second agent call. Use normal routing after explorer evidence returns.
+1. **Explore fast lane:** first agent for a new broad/uncertain, read-only retrieval. For one direction, use foreground `Agent({ subagent_type: "explore", inherit_context: false, thinking: "low", max_turns: 6, run_in_background: false })`; wait for its inline result before any parent tool call, routing read, or next delegation. For two or more independent directions, issue all `Agent({ subagent_type: "explore", inherit_context: false, run_in_background: true })` calls in one parallel tool turn. Stop task-specific work and wait for every completion notification/result before synthesis, dependent inspection, routing, or another delegation; do not poll or sleep. Prompt each agent only cwd, precise question, scope, and expected evidence. Skip index, agent-file, and contract reads for these fast-lane calls.
+2. Fast lane covers read-only exploration only; not edits, implementation, review, security/audit, testing, deployment, specialist selection, or coupled directions. Use normal routing after all required Explore evidence returns.
 3. Known narrow path/symbol: inspect directly; do not delegate.
 4. **MUST read `agents-index.tsv`** and match task intent against `description` before selecting every specialist or non-fast-lane agent.
 5. **MUST generate delegation contract** with `delegate-prompt.sh` before every non-fast-lane `Agent(...)` call. Contract includes mode, objective, scope, out-of-scope, phase, prior decisions, artifact authority, allowed actions, and structured return.
-6. Parent synthesizes; parallelize independent read-only research only.
+6. Parent synthesizes all required Explore results; parallelize independent read-only research only.
 7. Use `fusion` only for unresolved high-stakes comparison.
 
 ## Quick routes
