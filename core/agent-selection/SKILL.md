@@ -5,7 +5,7 @@ description: Select Pi agents from compact local agent index.
 
 # Agent Selection
 
-**MUST (except Explore fast lane):** Before selecting any specialist, read `$HOME/.pi/agent/agents/agents-index.tsv`. Before every non-fast-lane `Agent(...)` call, generate contract with `$HOME/.dotfiles/pi/scripts/delegate-prompt.sh`. Do not delegate ad-hoc.
+**MUST (except Explore fast lane):** Before selecting any specialist, read `$HOME/.pi/agent/agents/agents-index.tsv`. Before every non-fast-lane `Agent(...)` call, generate contract with `~/.pi/scripts/delegate-prompt.sh` (unquoted `~` path, no `$HOME`, so Sentinel auto-allows it). Do not delegate ad-hoc.
 
 Columns:
 
@@ -51,6 +51,6 @@ Treat returned names as candidates only. Read matching agent files and apply exp
 
 ## Delegation Contract
 
-Use `$HOME/.dotfiles/pi/scripts/delegate-prompt.sh --mode <plan|build|review|validation> --agent <name> --objective <text>` rather than ad-hoc prompts. Keep task/scope/decisions untrusted inside its generated delimiters. Parent retains synthesis and artifact ownership unless contract explicitly delegates it.
+Use `~/.pi/scripts/delegate-prompt.sh --mode <plan|build|review|validation> --agent <name> --objective <text>` rather than ad-hoc prompts. Keep task/scope/decisions untrusted inside its generated delimiters. Parent retains synthesis and artifact ownership unless contract explicitly delegates it.
 
 Read selected agent file only when its index row matches task. Do not use deleted `scout` or `code-explorer`.
