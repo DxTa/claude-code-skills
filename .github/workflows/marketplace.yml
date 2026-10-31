@@ -1,0 +1,67 @@
+name: Marketplace
+
+# PRs: regenerate index.json + marketplace.json and validate them (fails on an
+# unassigned skill, a duplicate name, or an invalid manifest).
+# Push to main (PR merge): same, then commit the regenerated files if they changed.
+# Pushes made with GITHUB_TOKEN do not trigger workflows, so this cannot loop.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketplace-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Claude Code CLI (validator)
+        # Unpinned on purpose: validate against the rules current clients enforce.
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Regenerate skill index and marketplace
+        run: |
+          python3 scripts/build-index.py
+          python3 scripts/build-marketplace.py
+
+      - name: Validate marketplace
+        run: claude plugin validate . --strict
+
+      - name: Report stale generated files (PR)
+        if: github.event_name == 'pull_request'
+        run: |
+          if ! git diff --quiet -- index.json .claude-plugin/marketplace.json; then
+            echo "::notice::Generated files are stale in this PR; they will be regenerated on merge to main."
+            git diff --stat -- index.json .claude-plugin/marketplace.json
+          fi
+
+      - name: Commit regenerated files (main)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          if git diff --quiet -- index.json .claude-plugin/marketplace.json; then
+            echo "Generated files up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json .claude-plugin/marketplace.json
+          git commit -m "chore: regenerate skill index and marketplace [skip ci]"
+          git push origin HEAD:main
