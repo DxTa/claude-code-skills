@@ -45,6 +45,13 @@ claude plugin validate . --strict
 
 A new top-level skill must be added to `STANDALONE_GROUPS` in the script, or the build fails.
 
+CI (`.github/workflows/marketplace.yml`) runs on every PR and on main. It lints the workflows, lints the scripts (ruff, shellcheck), regenerates both indexes, and runs `scripts/lint-marketplace.py`, which checks that every plugin path exists, that every skill is in exactly one plugin, and that every SKILL.md has valid frontmatter. It also checks there are no symlinks, no Git LFS files and no top-level `bin/`. It then runs `claude plugin validate --strict` and `scripts/test-marketplace-install.sh`, which installs every plugin into a throwaway HOME. After a merge to main, if all of that passes, CI commits the regenerated files back. Run the same checks locally:
+
+```bash
+python3 scripts/lint-marketplace.py
+scripts/test-marketplace-install.sh
+```
+
 Install:
 
 ```bash

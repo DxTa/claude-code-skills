@@ -61,11 +61,7 @@ def read_existing_aliases(index_path: Path, valid_paths: set[str]) -> dict[str, 
     aliases = data.get("skills", {})
     if not isinstance(aliases, dict):
         raise ValueError(f"Expected object at skills in {index_path}")
-    return {
-        str(alias): str(relative)
-        for alias, relative in aliases.items()
-        if str(relative) in valid_paths
-    }
+    return {str(alias): str(relative) for alias, relative in aliases.items() if str(relative) in valid_paths}
 
 
 def build_index(root: Path) -> dict[str, object]:

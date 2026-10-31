@@ -1,13 +1,12 @@
 name: Marketplace
 
-# PRs: regenerate index.json + marketplace.json and validate them (fails on an
-# unassigned skill, a duplicate name, or an invalid manifest).
-# Push to main (PR merge): same, then commit the regenerated files if they changed.
-# Pushes made with GITHUB_TOKEN do not trigger workflows, so this cannot loop.
+# lint    : code lint + regenerate index/marketplace + repo/path lint + manifest validation
+# install : end-to-end install of every plugin into a throwaway HOME
+# publish : on push to main only, after lint + install pass, commit regenerated files.
+#           Pushes made with GITHUB_TOKEN do not trigger workflows, so this cannot loop.
 
 on:
   pull_request:
-    branches: [main]
   push:
     branches: [main]
   workflow_dispatch:
@@ -17,24 +16,71 @@ permissions:
 
 concurrency:
   group: marketplace-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  RUFF_VERSION: "0.16.9"
+  PYYAML_VERSION: "6.0.3"
+  ACTIONLINT_VERSION: "1.7.7"
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.ref }}
+          python-version: "3.12"
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install Claude Code CLI (validator)
-        # Unpinned on purpose: validate against the rules current clients enforce.
+      - name: Install tools
+        # Claude Code unpinned on purpose: validate against rules current clients enforce.
+        run: |
+          pip install "ruff==${RUFF_VERSION}" "pyyaml==${PYYAML_VERSION}"
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Lint workflows
+        run: docker run --rm -v "$PWD:/repo" --workdir /repo "rhysd/actionlint:${ACTIONLINT_VERSION}" -color
+
+      - name: Lint scripts
+        run: |
+          ruff check scripts/
+          ruff format --check scripts/
+          shellcheck scripts/*.sh
+
+      - name: Regenerate skill index and marketplace
+        run: |
+          python3 scripts/build-index.py
+          python3 scripts/build-marketplace.py
+
+      - name: Report stale generated files
+        if: github.event_name == 'pull_request'
+        run: |
+          if ! git diff --quiet -- index.json .claude-plugin/marketplace.json; then
+            echo "::notice::Generated files are stale in this PR; they are regenerated on merge to main."
+            git diff --stat -- index.json .claude-plugin/marketplace.json
+          fi
+
+      - name: Lint skills and marketplace paths
+        run: python3 scripts/lint-marketplace.py
+
+      - name: Validate marketplace manifest
+        run: claude plugin validate . --strict
+
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Regenerate skill index and marketplace
@@ -42,19 +88,24 @@ jobs:
           python3 scripts/build-index.py
           python3 scripts/build-marketplace.py
 
-      - name: Validate marketplace
-        run: claude plugin validate . --strict
+      - name: Install every plugin end to end
+        run: scripts/test-marketplace-install.sh
 
-      - name: Report stale generated files (PR)
-        if: github.event_name == 'pull_request'
+  publish:
+    needs: [lint, install]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate skill index and marketplace
         run: |
-          if ! git diff --quiet -- index.json .claude-plugin/marketplace.json; then
-            echo "::notice::Generated files are stale in this PR; they will be regenerated on merge to main."
-            git diff --stat -- index.json .claude-plugin/marketplace.json
-          fi
+          python3 scripts/build-index.py
+          python3 scripts/build-marketplace.py
 
-      - name: Commit regenerated files (main)
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      - name: Commit regenerated files
         run: |
           if git diff --quiet -- index.json .claude-plugin/marketplace.json; then
             echo "Generated files up to date."

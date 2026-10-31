@@ -27,54 +27,69 @@ MARKETPLACE_DESCRIPTION = "Curated Agent Skills collection (engineering, GPU per
 
 # Top-level skill directory -> plugin name.
 STANDALONE_GROUPS: dict[str, str] = {
-    **{name: "gpu-perf" for name in (
-        "converting-cutile-to-triton",
-        "perf-activation-recompute",
-        "perf-analysis",
-        "perf-cpu-offloading",
-        "perf-cuda-graphs",
-        "perf-expert-parallel-overlap",
-        "perf-hierarchical-context-parallel",
-        "perf-host-analysis",
-        "perf-host-optimization",
-        "perf-memory-tuning",
-        "perf-optimization",
-        "perf-parallelism-strategies",
-        "perf-torch-cuda-graphs",
-        "perf-torch-sync-free",
-        "perf-tp-dp-comm-overlap",
-        "perf-workload-profiling",
-    )},
-    **{name: "nemo-dev" for name in (
-        "bump-base-image",
-        "bump-dependency",
-        "cicd",
-        "copyright",
-        "create-issue",
-        "debug",
-        "docs",
-        "error-handling",
-    )},
-    **{name: "llm-eval" for name in (
-        "accessing-mlflow",
-        "byob",
-        "deployment",
-        "evaluation",
-    )},
-    **{name: "video-ai" for name in (
-        "deepstream-dev",
-        "deepstream-import-vision-model",
-        "deploy",
-        "rt-vlm",
-        "video-analytics",
-        "video-search",
-    )},
-    **{name: "agent-meta" for name in (
-        "context-management",
-        "find-skills",
-        "skill-discovery",
-        "skill-evolution",
-    )},
+    **{
+        name: "gpu-perf"
+        for name in (
+            "converting-cutile-to-triton",
+            "perf-activation-recompute",
+            "perf-analysis",
+            "perf-cpu-offloading",
+            "perf-cuda-graphs",
+            "perf-expert-parallel-overlap",
+            "perf-hierarchical-context-parallel",
+            "perf-host-analysis",
+            "perf-host-optimization",
+            "perf-memory-tuning",
+            "perf-optimization",
+            "perf-parallelism-strategies",
+            "perf-torch-cuda-graphs",
+            "perf-torch-sync-free",
+            "perf-tp-dp-comm-overlap",
+            "perf-workload-profiling",
+        )
+    },
+    **{
+        name: "nemo-dev"
+        for name in (
+            "bump-base-image",
+            "bump-dependency",
+            "cicd",
+            "copyright",
+            "create-issue",
+            "debug",
+            "docs",
+            "error-handling",
+        )
+    },
+    **{
+        name: "llm-eval"
+        for name in (
+            "accessing-mlflow",
+            "byob",
+            "deployment",
+            "evaluation",
+        )
+    },
+    **{
+        name: "video-ai"
+        for name in (
+            "deepstream-dev",
+            "deepstream-import-vision-model",
+            "deploy",
+            "rt-vlm",
+            "video-analytics",
+            "video-search",
+        )
+    },
+    **{
+        name: "agent-meta"
+        for name in (
+            "context-management",
+            "find-skills",
+            "skill-discovery",
+            "skill-evolution",
+        )
+    },
     "argo-gitops": "gitops",
 }
 
@@ -169,14 +184,16 @@ def build(root: Path) -> dict[str, object]:
             description = DESCRIPTIONS.get(plugin)
             if description is None:
                 raise ValueError(f"Missing description for plugin {plugin!r}")
-        plugins.append({
-            "name": plugin,
-            "source": "./" if source == "." else f"./{source}",
-            "description": description,
-            "category": "organization" if plugin.startswith("org-") else "development",
-            "strict": False,
-            "skills": sorted(group["skills"]),
-        })
+        plugins.append(
+            {
+                "name": plugin,
+                "source": "./" if source == "." else f"./{source}",
+                "description": description,
+                "category": "organization" if plugin.startswith("org-") else "development",
+                "strict": False,
+                "skills": sorted(group["skills"]),
+            }
+        )
 
     return {
         "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
