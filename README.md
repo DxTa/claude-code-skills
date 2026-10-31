@@ -33,6 +33,27 @@ read "$HOME/.pi/agent/skills/skill-index.tsv"
 
 For tool setup, link this repository as the configured skills directory. Do not create duplicate compatibility trees; update the canonical source and regenerate indexes.
 
+## Claude plugin marketplace
+
+`.claude-plugin/marketplace.json` exposes the skills as plugins (one per category, `org-<department>` per organization, plus `gpu-perf`, `nemo-dev`, `llm-eval`, `video-ai`, `agent-meta`, `gitops` for top-level skills). It is generated, so do not edit it by hand:
+
+```bash
+python3 scripts/build-marketplace.py          # regenerate after adding/moving a skill
+python3 scripts/build-marketplace.py --check  # CI: fail if stale
+claude plugin validate . --strict
+```
+
+A new top-level skill must be added to `STANDALONE_GROUPS` in the script, or the build fails.
+
+Install:
+
+```bash
+/plugin marketplace add DxTa/claude-code-skills
+/plugin install core@dxta-skills
+```
+
+In Claude Desktop, add `DxTa/claude-code-skills` as a marketplace. Keep plugin files out of Git LFS: marketplace clones do not fetch LFS content.
+
 ## License
 
 MIT
