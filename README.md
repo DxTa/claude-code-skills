@@ -33,6 +33,34 @@ read "$HOME/.pi/agent/skills/skill-index.tsv"
 
 For tool setup, link this repository as the configured skills directory. Do not create duplicate compatibility trees; update the canonical source and regenerate indexes.
 
+## Claude plugin marketplace
+
+`.claude-plugin/marketplace.json` exposes the skills as plugins (one per category, `org-<department>` per organization, plus `gpu-perf`, `nemo-dev`, `llm-eval`, `video-ai`, `agent-meta`, `gitops` for top-level skills). It is generated, so do not edit it by hand:
+
+```bash
+python3 scripts/build-marketplace.py          # regenerate after adding/moving a skill
+python3 scripts/build-marketplace.py --check  # CI: fail if stale
+claude plugin validate . --strict
+```
+
+A new top-level skill must be added to `STANDALONE_GROUPS` in the script, or the build fails.
+
+CI (`.github/workflows/marketplace.yml`) runs on every PR and on main. It lints the workflows, lints the scripts (ruff, shellcheck), regenerates both indexes, and runs `scripts/lint-marketplace.py`, which checks that every plugin path exists, that every skill is in exactly one plugin, and that every SKILL.md has valid frontmatter. It also checks there are no symlinks, no Git LFS files and no top-level `bin/`. It then runs `claude plugin validate --strict` and `scripts/test-marketplace-install.sh`, which installs every plugin into a throwaway HOME. After a merge to main, if all of that passes, CI commits the regenerated files back. Run the same checks locally:
+
+```bash
+python3 scripts/lint-marketplace.py
+scripts/test-marketplace-install.sh
+```
+
+Install:
+
+```bash
+/plugin marketplace add DxTa/claude-code-skills
+/plugin install core@dxta-skills
+```
+
+In Claude Desktop, add `DxTa/claude-code-skills` as a marketplace. Keep plugin files out of Git LFS: marketplace clones do not fetch LFS content.
+
 ## License
 
 MIT

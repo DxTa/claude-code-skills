@@ -1,0 +1,118 @@
+name: Marketplace
+
+# lint    : code lint + regenerate index/marketplace + repo/path lint + manifest validation
+# install : end-to-end install of every plugin into a throwaway HOME
+# publish : on push to main only, after lint + install pass, commit regenerated files.
+#           Pushes made with GITHUB_TOKEN do not trigger workflows, so this cannot loop.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketplace-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  RUFF_VERSION: "0.16.9"
+  PYYAML_VERSION: "6.0.3"
+  ACTIONLINT_VERSION: "1.7.7"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install tools
+        # Claude Code unpinned on purpose: validate against rules current clients enforce.
+        run: |
+          pip install "ruff==${RUFF_VERSION}" "pyyaml==${PYYAML_VERSION}"
+          npm install -g @anthropic-ai/claude-code
+
+      - name: Lint workflows
+        run: docker run --rm -v "$PWD:/repo" --workdir /repo "rhysd/actionlint:${ACTIONLINT_VERSION}" -color
+
+      - name: Lint scripts
+        run: |
+          ruff check scripts/
+          ruff format --check scripts/
+          shellcheck scripts/*.sh
+
+      - name: Regenerate skill index and marketplace
+        run: |
+          python3 scripts/build-index.py
+          python3 scripts/build-marketplace.py
+
+      - name: Report stale generated files
+        if: github.event_name == 'pull_request'
+        run: |
+          if ! git diff --quiet -- index.json .claude-plugin/marketplace.json; then
+            echo "::notice::Generated files are stale in this PR; they are regenerated on merge to main."
+            git diff --stat -- index.json .claude-plugin/marketplace.json
+          fi
+
+      - name: Lint skills and marketplace paths
+        run: python3 scripts/lint-marketplace.py
+
+      - name: Validate marketplace manifest
+        run: claude plugin validate . --strict
+
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Regenerate skill index and marketplace
+        run: |
+          python3 scripts/build-index.py
+          python3 scripts/build-marketplace.py
+
+      - name: Install every plugin end to end
+        run: scripts/test-marketplace-install.sh
+
+  publish:
+    needs: [lint, install]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate skill index and marketplace
+        run: |
+          python3 scripts/build-index.py
+          python3 scripts/build-marketplace.py
+
+      - name: Commit regenerated files
+        run: |
+          if git diff --quiet -- index.json .claude-plugin/marketplace.json; then
+            echo "Generated files up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json .claude-plugin/marketplace.json
+          git commit -m "chore: regenerate skill index and marketplace [skip ci]"
+          git push origin HEAD:main

@@ -1,0 +1,564 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "dxta-skills",
+  "description": "Curated Agent Skills collection (engineering, GPU perf, video AI, org roles)",
+  "owner": {
+    "name": "DxTa",
+    "url": "https://github.com/DxTa"
+  },
+  "plugins": [
+    {
+      "name": "agent-meta",
+      "source": "./",
+      "description": "Skill discovery, skill evolution, and context-window management",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./context-management",
+        "./find-skills",
+        "./skill-discovery",
+        "./skill-evolution"
+      ]
+    },
+    {
+      "name": "aws",
+      "source": "./aws",
+      "description": "AWS CDK, serverless event-driven architecture, and cost operations",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./aws-cdk-development",
+        "./aws-cost-operations",
+        "./aws-serverless-eda"
+      ]
+    },
+    {
+      "name": "backend",
+      "source": "./backend",
+      "description": "Backend development and database design",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./backend-development",
+        "./databases"
+      ]
+    },
+    {
+      "name": "comms",
+      "source": "./comms",
+      "description": "GitHub/GitLab operations, Gmail, Google Calendar/Drive, internal comms",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./gcal",
+        "./gdrive",
+        "./github-operations",
+        "./glab-operations",
+        "./gmail",
+        "./internal-comms"
+      ]
+    },
+    {
+      "name": "core",
+      "source": "./core",
+      "description": "Engineering fundamentals: debugging, TDD, code review, design patterns, problem solving",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./agent-selection",
+        "./anti-patterns",
+        "./clean-code",
+        "./code-design-patterns",
+        "./code-review",
+        "./collision-zone-thinking",
+        "./defense-in-depth",
+        "./finishing-a-development-branch",
+        "./inversion-exercise",
+        "./meta-pattern-recognition",
+        "./planning-with-files",
+        "./push-all",
+        "./python-design-patterns",
+        "./receiving-code-review",
+        "./requesting-code-review",
+        "./root-cause-tracing",
+        "./scale-game",
+        "./simplification-cascades",
+        "./simplify",
+        "./skill-creator",
+        "./systematic-debugging",
+        "./test-driven-development",
+        "./verification-before-completion",
+        "./when-stuck",
+        "./yagni-engineering-principle"
+      ]
+    },
+    {
+      "name": "data",
+      "source": "./data",
+      "description": "Personal knowledge management and memvid video memory",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./memvid",
+        "./pkm"
+      ]
+    },
+    {
+      "name": "design",
+      "source": "./design",
+      "description": "Algorithmic art, canvas design, brand guidelines, themes, artifacts",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./algorithmic-art",
+        "./artifacts-builder",
+        "./brand-guidelines",
+        "./canvas-design",
+        "./theme-factory"
+      ]
+    },
+    {
+      "name": "devops",
+      "source": "./devops",
+      "description": "Ansible, CI/CD pipelines, IaC, cloud cost, local GitHub Actions",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./ansible-playbook-creator",
+        "./ci-cd-pipeline-builder",
+        "./cloud-cost-optimizer",
+        "./github-act",
+        "./infrastructure-as-code-generator"
+      ]
+    },
+    {
+      "name": "frontend",
+      "source": "./frontend",
+      "description": "Frontend design/development, UI styling, web frameworks, web artifacts",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./frontend-design",
+        "./frontend-development",
+        "./ui-styling",
+        "./web-artifacts-builder",
+        "./web-frameworks"
+      ]
+    },
+    {
+      "name": "gitops",
+      "source": "./",
+      "description": "Argo CD and Argo Workflows GitOps operations for Kubernetes",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./argo-gitops"
+      ]
+    },
+    {
+      "name": "gpu-perf",
+      "source": "./",
+      "description": "Megatron Bridge / TensorRT-LLM / PyTorch GPU performance tuning and profiling",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./converting-cutile-to-triton",
+        "./perf-activation-recompute",
+        "./perf-analysis",
+        "./perf-cpu-offloading",
+        "./perf-cuda-graphs",
+        "./perf-expert-parallel-overlap",
+        "./perf-hierarchical-context-parallel",
+        "./perf-host-analysis",
+        "./perf-host-optimization",
+        "./perf-memory-tuning",
+        "./perf-optimization",
+        "./perf-parallelism-strategies",
+        "./perf-torch-cuda-graphs",
+        "./perf-torch-sync-free",
+        "./perf-tp-dp-comm-overlap",
+        "./perf-workload-profiling"
+      ]
+    },
+    {
+      "name": "herdr",
+      "source": "./herdr",
+      "description": "Markdown preview split pane",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./markdown-preview-split"
+      ]
+    },
+    {
+      "name": "integration",
+      "source": "./integration",
+      "description": "MCP server builder",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./mcp-builder"
+      ]
+    },
+    {
+      "name": "llm-eval",
+      "source": "./",
+      "description": "LLM evaluation (NEL, BYOB, MLflow) and model serving (vLLM, SGLang, TRT-LLM)",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./accessing-mlflow",
+        "./byob",
+        "./deployment",
+        "./evaluation"
+      ]
+    },
+    {
+      "name": "media",
+      "source": "./media",
+      "description": "Media processing and Slack GIF creation",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./media-processing",
+        "./slack-gif-creator"
+      ]
+    },
+    {
+      "name": "nemo-dev",
+      "source": "./",
+      "description": "NeMo / Megatron repo workflow: CI, dependency bumps, issues, conventions",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./bump-base-image",
+        "./bump-dependency",
+        "./cicd",
+        "./copyright",
+        "./create-issue",
+        "./debug",
+        "./docs",
+        "./error-handling"
+      ]
+    },
+    {
+      "name": "org-corporate-strategy",
+      "source": "./organizations/corporate-strategy",
+      "description": "Organizational role skills: corporate strategy",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/chief-strategy-officer",
+        "./skills/mergers-and-acquisitions",
+        "./skills/portfolio-strategy",
+        "./skills/scenario-planning",
+        "./skills/strategic-alliances"
+      ]
+    },
+    {
+      "name": "org-customer-experience",
+      "source": "./organizations/customer-experience",
+      "description": "Organizational role skills: customer experience",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/chief-customer-officer",
+        "./skills/escalation-management",
+        "./skills/self-service-and-knowledge",
+        "./skills/support-operations",
+        "./skills/voice-of-customer"
+      ]
+    },
+    {
+      "name": "org-data-analytics",
+      "source": "./organizations/data-analytics",
+      "description": "Organizational role skills: data analytics",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/ai-ml-governance",
+        "./skills/business-intelligence",
+        "./skills/chief-data-officer",
+        "./skills/data-engineering",
+        "./skills/data-governance",
+        "./skills/data-modeling"
+      ]
+    },
+    {
+      "name": "org-demand-generation",
+      "source": "./organizations/demand-generation",
+      "description": "Organizational role skills: demand generation",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/ai-search-optimization",
+        "./skills/app-store-optimization",
+        "./skills/landing-page-cro-expert",
+        "./skills/lead-capture",
+        "./skills/lifecycle-messaging",
+        "./skills/listing-distribution",
+        "./skills/marketing-analytics",
+        "./skills/paid-advertising",
+        "./skills/programmatic-seo",
+        "./skills/seo-strategy"
+      ]
+    },
+    {
+      "name": "org-executive",
+      "source": "./organizations/executive",
+      "description": "Organizational role skills: executive",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/agent-hierarchy",
+        "./skills/ai-research-analyst",
+        "./skills/business-growth-consultant",
+        "./skills/ceo-advisor",
+        "./skills/chief-executive",
+        "./skills/saas-idea-validator"
+      ]
+    },
+    {
+      "name": "org-finance",
+      "source": "./organizations/finance",
+      "description": "Organizational role skills: finance",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/budgeting-and-forecasting",
+        "./skills/capital-allocation",
+        "./skills/chief-financial-officer",
+        "./skills/financial-modeling",
+        "./skills/financial-reporting-and-close",
+        "./skills/internal-controls-and-audit",
+        "./skills/revenue-recognition",
+        "./skills/tax",
+        "./skills/treasury-and-liquidity",
+        "./skills/unit-economics"
+      ]
+    },
+    {
+      "name": "org-it-operations",
+      "source": "./organizations/it-operations",
+      "description": "Organizational role skills: it operations",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/backup-and-recovery",
+        "./skills/chief-information-officer",
+        "./skills/endpoint-management",
+        "./skills/identity-lifecycle-administration",
+        "./skills/it-asset-management",
+        "./skills/network-administration",
+        "./skills/service-desk",
+        "./skills/systems-administration"
+      ]
+    },
+    {
+      "name": "org-legal-risk",
+      "source": "./organizations/legal-risk",
+      "description": "Organizational role skills: legal risk",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/chief-legal-and-risk-officer",
+        "./skills/contract-review",
+        "./skills/corporate-governance",
+        "./skills/enterprise-risk",
+        "./skills/privacy-and-data-protection",
+        "./skills/regulatory-compliance"
+      ]
+    },
+    {
+      "name": "org-marketing",
+      "source": "./organizations/marketing",
+      "description": "Organizational role skills: marketing",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/behavioral-marketing",
+        "./skills/brand-voice",
+        "./skills/chief-content-officer",
+        "./skills/chief-marketing-officer",
+        "./skills/content-strategy",
+        "./skills/customer-research",
+        "./skills/events-and-field-marketing",
+        "./skills/marketing-campaign-planner",
+        "./skills/marketing-copywriting",
+        "./skills/marketing-planning",
+        "./skills/newsletter-writer",
+        "./skills/partnership-marketing",
+        "./skills/positioning-and-messaging",
+        "./skills/public-relations",
+        "./skills/social-post-craft",
+        "./skills/video-content",
+        "./skills/visual-content",
+        "./skills/youtube-producer"
+      ]
+    },
+    {
+      "name": "org-operations",
+      "source": "./organizations/operations",
+      "description": "Organizational role skills: operations",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/business-continuity-and-resilience",
+        "./skills/capacity-and-demand-planning",
+        "./skills/chief-operating-officer",
+        "./skills/facilities-and-workplace",
+        "./skills/process-design",
+        "./skills/procurement-and-sourcing",
+        "./skills/quality-management",
+        "./skills/service-level-management",
+        "./skills/supply-chain-and-logistics",
+        "./skills/vendor-management"
+      ]
+    },
+    {
+      "name": "org-people",
+      "source": "./organizations/people",
+      "description": "Organizational role skills: people",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/benefits-and-leave",
+        "./skills/chief-human-resources-officer",
+        "./skills/compensation-and-leveling",
+        "./skills/employee-relations",
+        "./skills/hiring-and-interviewing",
+        "./skills/learning-and-development",
+        "./skills/onboarding-and-offboarding",
+        "./skills/org-design",
+        "./skills/performance-management",
+        "./skills/workforce-planning"
+      ]
+    },
+    {
+      "name": "org-pmo",
+      "source": "./organizations/pmo",
+      "description": "Organizational role skills: pmo",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/benefits-realization",
+        "./skills/change-and-adoption",
+        "./skills/dependency-and-risk-management",
+        "./skills/head-of-pmo",
+        "./skills/portfolio-governance",
+        "./skills/program-management",
+        "./skills/project-delivery"
+      ]
+    },
+    {
+      "name": "org-product",
+      "source": "./organizations/product",
+      "description": "Organizational role skills: product",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/chief-product-officer",
+        "./skills/interface-redesign",
+        "./skills/ux-product-auditor",
+        "./skills/visual-reference-generation"
+      ]
+    },
+    {
+      "name": "org-revenue",
+      "source": "./organizations/revenue",
+      "description": "Organizational role skills: revenue",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/activation",
+        "./skills/chief-revenue-officer",
+        "./skills/outbound-prospecting",
+        "./skills/pricing-and-packaging",
+        "./skills/referral-programs",
+        "./skills/retention",
+        "./skills/revenue-operations",
+        "./skills/sales-enablement"
+      ]
+    },
+    {
+      "name": "org-security",
+      "source": "./organizations/security",
+      "description": "Organizational role skills: security",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/access-and-identity",
+        "./skills/chief-information-security-officer",
+        "./skills/incident-response",
+        "./skills/security-architecture-review"
+      ]
+    },
+    {
+      "name": "org-technology",
+      "source": "./organizations/technology",
+      "description": "Organizational role skills: technology",
+      "category": "organization",
+      "strict": false,
+      "skills": [
+        "./skills/ai-workflow-architect",
+        "./skills/branch-and-worktree-workflow",
+        "./skills/chief-technology-officer",
+        "./skills/observability-and-reliability",
+        "./skills/prompt-optimizer",
+        "./skills/solution-architecture"
+      ]
+    },
+    {
+      "name": "packs",
+      "source": "./packs",
+      "description": "Opt-in bundles: feature-dev and fullstack starter",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./feature-dev",
+        "./fullstack-starter-pack"
+      ]
+    },
+    {
+      "name": "quality",
+      "source": "./quality",
+      "description": "Testing, coverage, PR review, performance and chaos testing",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./chaos-engineering-toolkit",
+        "./code-review-plugin",
+        "./performance-test-suite",
+        "./pr-review-toolkit",
+        "./test-coverage-analyzer",
+        "./webapp-testing"
+      ]
+    },
+    {
+      "name": "security",
+      "source": "./security",
+      "description": "Security review and test scanning",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./security-pro-pack",
+        "./security-test-scanner"
+      ]
+    },
+    {
+      "name": "video-ai",
+      "source": "./",
+      "description": "NVIDIA DeepStream, VSS deployment, real-time VLM, video search and analytics",
+      "category": "development",
+      "strict": false,
+      "skills": [
+        "./deepstream-dev",
+        "./deepstream-import-vision-model",
+        "./deploy",
+        "./rt-vlm",
+        "./video-analytics",
+        "./video-search"
+      ]
+    }
+  ]
+}
