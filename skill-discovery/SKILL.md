@@ -1,47 +1,72 @@
 ---
 name: skill-discovery
-description: Find and load locally installed skills that match a task but are absent from available_skills. Use skill-index.tsv to search by keyword/domain, then read the exact SKILL.md path before applying it.
+description: Proactively find and load the skills a task needs. Run at the start of each new task, at each phase change (plan, implement, debug, review, done), and when a domain term appears that no visible skill covers. Searches the skill index cheaply; never loads the whole index.
 ---
 
 # Skill Discovery
 
-## When to Use
+## When to Run
 
-- You need specialized knowledge for a task but no visible skill matches.
-- User asks about a domain (AWS, frontend, testing, perf, GRC, AI platform, etc.) and you suspect a skill exists.
-- You see a skill name referenced in AGENTS.md routing or session context but it is not in your available_skills list.
-- You need an organizational workflow such as finance, legal-risk, people, operations, revenue, marketing, customer experience, or corporate strategy.
+- Start of each new task.
+- Each phase change: plan, implement, debug, review, verify, done.
+- A domain term appears (AWS, perf, GRC, compliance, data, marketing) and no visible skill covers it.
+- Not on every turn. Within one phase, keep the current selection, except for a newly uncovered concern: search for it at once.
+- Subagents: this text is preloaded. Start at Search Cheaply.
 
-## How to Find Hidden Skills
+## Search Cheaply
 
-### Step 1: Read the skill index
+The full index is about 110 KB. Do not open it. Search it.
 
-The index is at the **skills root**, NOT inside `mine/` or any subdirectory:
-
-```bash
-read $HOME/.pi/agent/skills/skill-index.tsv
-```
-
-**Do NOT** use `skills/mine/skill-index.tsv` or `skills/mine/skill-discovery/skill-index.tsv` — the file is directly at `skills/skill-index.tsv`.
-
-The TSV has 4 columns: `name`, `source`, `path`, `description`.
-
-If the file is not found, fall back:
-```bash
-find $HOME/.pi/agent/skills -maxdepth 1 -name 'skill-index.tsv'
-```
-
-After reading index, use semantic search for advisory candidates:
+1. Semantic search, one sentence describing the task:
 
 ```bash
 node "$HOME/.dotfiles/pi/scripts/agent-semantic-search.mjs" search --catalog skills --query "<one-sentence task>" --top-k 5
 ```
 
-Search returns ordered `results` array with up to five candidates, not one selected skill. Use candidates to choose one primary and, when separate concerns need them, up to two secondary skills. If command fails because model, cache, or index is unavailable, continue with keyword/directory matching; never use stale output.
+`results` are candidates, not decisions. If `fallback` is `lexical` (stale embeddings), treat the ranking as weaker. If the command fails, use step 2.
 
-### Step 2: Match by keyword
+2. Keyword search, output capped:
 
-Scan the `description` column for keywords related to the task. Examples:
+```bash
+grep -i "<keyword>" "$HOME/.pi/agent/skills/skill-index.tsv" | cut -f1,3 | head -20
+```
+
+Columns: `name`, `source`, `path`, `description`. For close calls, replace `cut -f1,3` with `cut -f1,4 | cut -c1-200` to see descriptions.
+
+3. Directory fallback when the index misses a skill:
+
+```bash
+command find -H "$HOME/.pi/agent/skills" -name SKILL.md -path "*<keyword>*" | head -20
+```
+
+## Select
+
+- One primary skill that drives the phase.
+- Add a secondary skill for each separate concern the phase has. No fixed cap. Each added skill must change a concrete action. Example: TDD plus clean-code for a refactor.
+- A keyword hit is not a reason to load. Load a skill because it changes what you will do.
+- Sensitive, consequential, or role-title skills (for example chief-*, legal, HR, finance, compliance sign-off) load only when the user or an agent's `skills:` list names them. Do not add them to automatic routing.
+
+## Load and Apply
+
+1. Read each chosen SKILL.md fully with `read`. Path: `$HOME/.pi/agent/skills/<path column>`.
+2. Follow its `Never` rules, routing boundaries, and referenced files.
+3. Stop loading when the phase is covered.
+
+## Report
+
+One line:
+
+- `Skills: <primary>; +<secondary>, <secondary>`
+- `Skills: none fit (<query>)`, then continue with normal tools.
+
+## Self-Reflect at Each Phase Change
+
+Answer both in one line each before the next phase:
+
+1. Did a loaded skill change any action? No: drop it.
+2. Is a concern uncovered now? Yes: search for that concern only.
+
+## Keyword Map
 
 | User asks about | Skill name to look for |
 |---|---|
@@ -59,27 +84,11 @@ Scan the `description` column for keywords related to the task. Examples:
 | Communication, Gmail, Calendar | `gmail`, `gcal`, `gdrive`, `internal-comms` |
 | Organizational workflows | Search `mine/organizations/` for department and skill name |
 
-### Step 3: Read matching SKILL.md files
-
-For every primary or secondary skill you choose, construct its full path from the indexed name and path. Prefer exact description matches over name-only matches:
-
-```bash
-read $HOME/.pi/agent/skills/<path-from-index>
-```
-
-The `path` column is relative to `$HOME/.pi/agent/skills/`. For example, if the index shows path `mine/perf-optimization/SKILL.md`, the full read path is `$HOME/.pi/agent/skills/mine/perf-optimization/SKILL.md`. Organizational imports use paths such as `$HOME/.pi/agent/skills/mine/organizations/finance/skills/financial-modeling/SKILL.md`.
-
-### Step 4: Apply selected skills
-
-Read each selected `SKILL.md` completely, including `Never`, routing boundaries, and referenced files. Use one primary skill; add at most two secondary skills only when each covers a separate concern. Stop when task is covered. Do not treat a skill name, agent name, or keyword hit as proof that the skill applies.
-
-For sensitive, consequential, or role-title skills, require explicit user or agent selection and preserve the skill's decision-support boundaries. Do not add them to broad automatic routing rules.
-
 ## Notes
 
 - `disable-model-invocation: true` excludes a skill from normal system discovery; it remains loadable through an explicit agent `skills:` selection or explicit skill request. Workflow agents expose explicitly selected hidden skills without making them globally automatic.
 - Agent frontmatter `skills:` values must resolve by skill name or exact indexed path. Index aliases are for discovery; use the `path` column when reading files.
-- The index is auto-generated. If a skill is missing from the index, search by directory: `find $HOME/.pi/agent/skills -name SKILL.md -path '*keyword*'`.
+- The index is auto-generated. If a skill is missing from the index, search by directory: `command find -H $HOME/.pi/agent/skills -name SKILL.md -path '*keyword*'`.
 - GRC/compliance skills live under `third-party/grc-skills/extracted/`.
 - Perf skills live under `mine/perf-*`.
 - AI platform skills live under `work/ai-platform/`.
