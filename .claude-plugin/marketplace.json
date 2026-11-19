@@ -44,21 +44,6 @@
       ]
     },
     {
-      "name": "comms",
-      "source": "./comms",
-      "description": "GitHub/GitLab operations, Gmail, Google Calendar/Drive, internal comms",
-      "category": "development",
-      "strict": false,
-      "skills": [
-        "./gcal",
-        "./gdrive",
-        "./github-operations",
-        "./glab-operations",
-        "./gmail",
-        "./internal-comms"
-      ]
-    },
-    {
       "name": "core",
       "source": "./core",
       "description": "Engineering fundamentals: debugging, TDD, code review, design patterns, problem solving",
@@ -79,7 +64,6 @@
         "./push-all",
         "./python-design-patterns",
         "./receiving-code-review",
-        "./requesting-code-review",
         "./root-cause-tracing",
         "./scale-game",
         "./simplification-cascades",
@@ -87,7 +71,6 @@
         "./skill-creator",
         "./systematic-debugging",
         "./test-driven-development",
-        "./verification-before-completion",
         "./when-stuck",
         "./yagni-engineering-principle"
       ]
